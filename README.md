@@ -40,4 +40,4 @@ You can also draw with Graphviz. The `create_dot_file_for_collection` create a d
 # Create an SVG for the tree
 dot -Tsvg generatedFile > tree_in_svg.svg
 ```
-![tree_svg](/tree.svg)
+![tree_png](tree.png)
