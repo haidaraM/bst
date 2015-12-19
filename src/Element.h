@@ -19,10 +19,10 @@ void print_element(const Element e, FILE *stream);
 
 
 /**
- * @brief Return the element in the format you want in the dot file generated and in the ascii format
- * @param e element to get in char*
+ * @brief Write in the given array the element. The array must be large enough to contain the element in char*
+ * @param e element
  */
-char *get_element_in_char_array(const Element e);
+void write_element_in_char_array(const Element e, char *output);
 
 /**
  * @brief Compare two elements.

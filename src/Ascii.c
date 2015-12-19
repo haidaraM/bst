@@ -41,8 +41,8 @@ typedef struct Asciinode
     /* -1=I am left, 0=I am root, 1=right */
     int parent_dir;
 
-    /* max supported unit32 in dec, 10 digits max*/
-    char label[11];
+    /* max supported unit32 in dec, 20 digits max*/
+    char label[21];
 } Asciinode;
 
 
@@ -227,7 +227,7 @@ static Asciinode *build_ascii_tree_recursive(Node *t)
         asciinode->right->parent_dir = 1;
     }
 
-    sprintf(asciinode->label, get_element_in_char_array(t->data));
+    write_element_in_char_array(t->data, asciinode->label);
     asciinode->lablen = strlen(asciinode->label);
 
     return asciinode;
