@@ -77,11 +77,10 @@ int search_element_in_Avl(const Avl *avl, Element element) {
 }
 
 
-
-
-static int idnumer = 0;
-
 static void write_node_in_file(const Node *noeud, FILE *file) {
+
+    static int idnumer = 0;
+
     fprintf(file, "%d", noeud->data);
     fprintf(file, "->");
     fprintf(file, "{");
