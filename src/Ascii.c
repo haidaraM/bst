@@ -209,28 +209,28 @@ static void compute_edge_lengths(Asciinode *node)
 
 static Asciinode *build_ascii_tree_recursive(Node *t)
 {
-    Asciinode *node;
+    Asciinode *asciinode;
 
     if (t == NULL) return NULL;
 
-    node = malloc(sizeof(Asciinode));
-    node->left = build_ascii_tree_recursive(t->leftChild);
-    node->right = build_ascii_tree_recursive(t->rightChild);
+    asciinode = malloc(sizeof(Asciinode));
+    asciinode->left = build_ascii_tree_recursive(t->leftChild);
+    asciinode->right = build_ascii_tree_recursive(t->rightChild);
 
-    if (node->left != NULL)
+    if (asciinode->left != NULL)
     {
-        node->left->parent_dir = -1;
+        asciinode->left->parent_dir = -1;
     }
 
-    if (node->right != NULL)
+    if (asciinode->right != NULL)
     {
-        node->right->parent_dir = 1;
+        asciinode->right->parent_dir = 1;
     }
 
-    sprintf(node->label, "%d", t->data);
-    node->lablen = strlen(node->label);
+    sprintf(asciinode->label, get_element_in_char_array(t->data));
+    asciinode->lablen = strlen(asciinode->label);
 
-    return node;
+    return asciinode;
 }
 
 /**

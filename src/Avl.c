@@ -102,15 +102,22 @@ static void write_node_in_file(const Node *noeud, FILE *file)
     if (noeud->leftChild != NULL || noeud->rightChild != NULL)
     {
 
-        if (noeud->leftChild != NULL)
-            fprintf(file, "%d", noeud->leftChild->data);
-        else
+        if (noeud->leftChild != NULL){
+
+            print_element(noeud->leftChild->data,file);
+        }
+        else{
             fprintf(file, "id%d [shape=point]", idnumer++);
+        }
+
         fprintf(file, " ");
-        if (noeud->rightChild != NULL)
-            fprintf(file, "%d", noeud->rightChild->data);
-        else
+
+        if (noeud->rightChild != NULL){
+            print_element(noeud->rightChild->data,file);
+        }
+        else{
             fprintf(file, "id%d [shape=point]", idnumer++);
+        }
     }
 
 
@@ -118,8 +125,7 @@ static void write_node_in_file(const Node *noeud, FILE *file)
 }
 
 /**
- * @brief Crée un noeud avec element comme data
- * @fn static Node *create_node(Element element)
+ * @brief create a node with element as data
  */
 static Node *create_node(const Element element)
 {

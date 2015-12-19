@@ -4,21 +4,25 @@
 #ifndef _ELEMENT
 #define _ELEMENT
 
+#include <stdio.h>
 /**< An element in the tree.
  * You can define your own element but you have to redefine the following functions */
 typedef int Element;
 
 /**
- * @brief Show the element
+ * @brief Print the element in the given stream.
  * @param e element to show
+ * @param stream the stream in which you wan to print the element. The stream can be stdout or a regular file in file
+ * system.
  */
-void afficher_element(const Element e);
+void print_element(const Element e, FILE *stream);
+
 
 /**
- * @brief Return the element in the format you want in the dot file generated
+ * @brief Return the element in the format you want in the dot file generated and in the ascii format
  * @param e element to get in char*
  */
-char *get_element_in_char(const Element e);
+char *get_element_in_char_array(const Element e);
 
 /**
  * @brief Compare two elements.
