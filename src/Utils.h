@@ -1,4 +1,5 @@
 /**
+ * @brief Contains some functions used across the project
  * @file Utils.h
 */
 #ifndef UTILS_H

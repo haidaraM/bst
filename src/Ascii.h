@@ -1,4 +1,6 @@
 /**
+ * @brief This module is used to show the tree in ASCII.
+ * More details here http://stackoverflow.com/questions/801740/c-how-to-draw-a-binary-tree-to-the-console
  * @file Ascii.h
 */
 #ifndef ASCII_H
@@ -8,7 +10,6 @@
 
 /**
  * @brief      Show the tree in ASCII.
- * http://stackoverflow.com/questions/801740/c-how-to-draw-a-binary-tree-to-the-console
  *
  * @param tree tree to show
  */

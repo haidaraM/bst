@@ -8,15 +8,15 @@
 
 
 /* intern functions */
-static int compute_height(Node *noeud);
+static int compute_height(const Node *noeud);
 
-static void insertion(Node **pNoeud, Element element);
+static void recursive_insertion(Node **pNoeud, const Element element);
 
 static Node *right_rotation(Node *root);
 
 static Node *left_rotation(Node *root);
 
-static Node *create_node(Element element);
+static Node *create_node(const Element element);
 
 static void rotate_avl(Avl *avl);
 
@@ -43,9 +43,9 @@ void testament_avl(Avl *a)
     recursive_testament(a->root);
 }
 
-void insert_element_in_Avl(Avl *a, Element element)
+void insert_element_in_Avl(Avl *a, const Element element)
 {
-    insertion(&(a->root), element);
+    recursive_insertion(&(a->root), element);
     rotate_avl(a);
 }
 
@@ -66,7 +66,7 @@ void create_dot_file_for_avl(const Avl *avl, const char *fileName)
     fclose(fichierDigraph);
 }
 
-int recursive_search_element(Node *noeud, Element element)
+int recursive_search_element(Node *noeud, const Element element)
 {
     if (noeud == NULL)
     {
@@ -85,7 +85,7 @@ int recursive_search_element(Node *noeud, Element element)
 
 }
 
-int search_element_in_Avl(const Avl *avl, Element element)
+int search_element_in_Avl(const Avl *avl, const Element element)
 {
     return recursive_search_element(avl->root, element);
 }
@@ -121,7 +121,7 @@ static void write_node_in_file(const Node *noeud, FILE *file)
  * @brief Crée un noeud avec element comme data
  * @fn static Node *create_node(Element element)
  */
-static Node *create_node(Element element)
+static Node *create_node(const Element element)
 {
     Node *n = malloc(sizeof(Node));
     n->data = element;
@@ -153,10 +153,8 @@ static void recursive_testament(Node *noeud)
     }
 }
 
-/**
- * Methodé récursive faisant l'insertion dans l'arbre
- */
-static void insertion(Node **pNoeud, Element element)
+
+static void recursive_insertion(Node **pNoeud, const Element element)
 {
     if (*pNoeud == NULL)
     {
@@ -166,11 +164,11 @@ static void insertion(Node **pNoeud, Element element)
         if (compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => on va à droite*/
 
-            insertion(&((*pNoeud)->rightChild), element);
+            recursive_insertion(&((*pNoeud)->rightChild), element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
         { /*element < data => on va à gauche*/
-            insertion(&((*pNoeud)->leftChild), element);
+            recursive_insertion(&((*pNoeud)->leftChild), element);
         }
     }
 }
@@ -243,7 +241,7 @@ static Node *left_rotation(Node *racine)
 }
 
 
-static int compute_height(Node *noeud)
+static int compute_height(const Node *noeud)
 {
     if (noeud == NULL)
         return 0;

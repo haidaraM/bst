@@ -1,4 +1,5 @@
 /**
+ * @brief This module represents a collection of elements
  * @file Collection.h
 */
 #ifndef _collection
@@ -6,36 +7,47 @@
 
 #include "Element.h"
 
+/**
+ * @struct Collection
+ * @brief Represent a collection of element
+ */
 typedef struct
 {
-    void *racine;
+    void *racine; /**< Pointer on the concrete implementation of collection : AVL or ... */
 } Collection;
 
 
 /**
  * @brief Initialize a collection
+ * @param collection collection to initialize
  */
-void initialize_collection(Collection *a);
+void initialize_collection(Collection *collection);
 
 /**
- * Testament of the collection
+ * @brief Testament of the collection
+ * @param collection collection to free
  */
 void testament_collection(Collection *collection);
 
 /**
- * Insert an element in the collection
+ * @brief Insert an element in the collection
+ * @param collection collection in which you want to insert
+ * @param element element to insert
  */
-void insert_element_in_collection(Collection *pos, Element val);
+void insert_element_in_collection(Collection *collection, const Element element);
 
 
 /**
  * @brief Search in element in the collection
+ * @param collection collection in which you want to perfom the search
+ * @param element element you are looking for
+ * @return 1 if element is present
+ *         0 otherwise
  */
-int search_element_in_collection(const Collection *collection, Element element);
+int search_element_in_collection(const Collection *collection, const Element element);
 
 /**
  * @brief Create a file in dot format for the given collection
- * @fn void create_dot_file_for_collection(const Avl *avl, const char *fileName)
  * @param collection
  * @param filename
  */

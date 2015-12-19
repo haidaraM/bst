@@ -30,3 +30,5 @@
 .idea
 # Debug files
 *.dSYM/
+arbre.gv
+arbre.gv.svg

@@ -1,4 +1,5 @@
 /**
+ * @brief This module is the implementation of AVL tree
  * @file Avl.h
 */
 #ifndef _AVL
@@ -8,25 +9,26 @@
 
 
 /**
+ * @brief Tree node
  * @struct Node
- * @brief One node of the tree
+ *
  */
 typedef struct Node
 {
 
-    struct Node *leftChild; /**< fils gauche du noeud */
-    struct Node *rightChild; /**< fils droit du noeud */
-    Element data; /**< information contenue dans le noeud */
+    struct Node *leftChild; /**< Right child of the node */
+    struct Node *rightChild; /**< Left child of the node */
+    Element data; /**< Data contained in the node */
 } Node;
 
 /**
  * @struct Avl
- * @brief Represent an AVL tree. It can be useful if we want some metadata.
+ * @brief AVL tree.
  *
  */
 typedef struct
 {
-    Node *root; /**<  root */
+    Node *root; /**<  The root node of the tree */
 } Avl;
 
 /**
@@ -37,18 +39,18 @@ void initialize_avl(Avl *avl);
 
 /**
  * @brief AVL testament
- * @param avl
+ * @param avl to free
  */
 void testament_avl(Avl *avl);
 
 /**
  * @brief Search an element in the tree
- * @param avl
+ * @param avl tree in which you want to perform the search
  * @param element element you are looking for
  * @return 1 if element is present
  *         0 otherwise
  */
-int search_element_in_Avl(const Avl *avl, Element element);
+int search_element_in_Avl(const Avl *avl, const Element element);
 
 /**
  * @brief Get the height of the tree
@@ -62,7 +64,7 @@ int get_avl_height(const Avl *avl);
  * @param avl avl in which you wan to insert
  * @param element element to insert
  */
-void insert_element_in_Avl(Avl *avl, Element element);
+void insert_element_in_Avl(Avl *avl, const Element element);
 
 /**
  * @brief Create a file in dot format for the given AVL

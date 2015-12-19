@@ -24,7 +24,7 @@ void testament_collection(Collection *collection)
 #endif
 }
 
-void insert_element_in_collection(Collection *pos, Element val)
+void insert_element_in_collection(Collection *pos, const Element val)
 {
 #ifdef AVL
     insert_element_in_Avl(pos->racine, val);
@@ -32,7 +32,7 @@ void insert_element_in_collection(Collection *pos, Element val)
 }
 
 
-int search_element_in_collection(const Collection *collection, Element element)
+int search_element_in_collection(const Collection *collection, const Element element)
 {
 #ifdef AVL
     return search_element_in_Avl((Avl *) collection->racine, element);
