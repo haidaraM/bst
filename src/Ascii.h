@@ -1,3 +1,6 @@
+/**
+ * @file Ascii.h
+*/
 #ifndef ASCII_H
 #define ASCII_H
 
@@ -10,4 +13,5 @@
  * @param tree tree to show
  */
 void show_collection_in_ascii(Collection *tree);
+
 #endif

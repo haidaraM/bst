@@ -1,9 +1,13 @@
+/**
+ * @file Collection.h
+*/
 #ifndef _collection
 #define _collection
 
 #include "Element.h"
 
-typedef struct {
+typedef struct
+{
     void *racine;
 } Collection;
 

@@ -1,5 +1,9 @@
+/**
+ * @file Avl.h
+*/
 #ifndef _AVL
 #define _AVL
+
 #include "Element.h"
 
 
@@ -7,7 +11,8 @@
  * @struct Node
  * @brief One node of the tree
  */
-typedef struct Node {
+typedef struct Node
+{
 
     struct Node *leftChild; /**< fils gauche du noeud */
     struct Node *rightChild; /**< fils droit du noeud */
@@ -19,7 +24,8 @@ typedef struct Node {
  * @brief Represent an AVL tree. It can be useful if we want some metadata.
  *
  */
-typedef struct {
+typedef struct
+{
     Node *root; /**<  root */
 } Avl;
 

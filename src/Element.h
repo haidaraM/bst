@@ -1,3 +1,6 @@
+/**
+ * @file Element.h
+*/
 #ifndef _ELEMENT
 #define _ELEMENT
 
@@ -13,7 +16,7 @@ void afficher_element(const Element e);
 /**
  *
  */
-char * get_element_in_char(const Element e);
+char *get_element_in_char(const Element e);
 
 /**
  * @brief Compare two elements.
