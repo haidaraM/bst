@@ -43,7 +43,7 @@ void free_avl(Avl *a)
     recursive_testament(a->root);
 }
 
-void insert_element_in_Avl(Avl *a, const Element element)
+void insert_element_in_avl(Avl *a, const Element element)
 {
     recursive_insertion(&(a->root), element);
     rotate_avl(a);
@@ -85,7 +85,7 @@ int recursive_search_element(Node *noeud, const Element element)
 
 }
 
-int search_element_in_Avl(const Avl *avl, const Element element)
+int search_element_in_avl(const Avl *avl, const Element element)
 {
     return recursive_search_element(avl->root, element);
 }

@@ -50,7 +50,7 @@ void free_avl(Avl *avl);
  * @return 1 if element is present
  *         0 otherwise
  */
-int search_element_in_Avl(const Avl *avl, const Element element);
+int search_element_in_avl(const Avl *avl, const Element element);
 
 /**
  * @brief Get the height of the tree
@@ -64,7 +64,7 @@ int get_avl_height(const Avl *avl);
  * @param avl avl in which you wan to insert
  * @param element element to insert
  */
-void insert_element_in_Avl(Avl *avl, const Element element);
+void insert_element_in_avl(Avl *avl, const Element element);
 
 /**
  * @brief Create a file in dot format for the given AVL

@@ -27,7 +27,7 @@ void free_collection(Collection *collection)
 void insert_element_in_collection(Collection *pos, const Element val)
 {
 #ifdef AVL
-    insert_element_in_Avl(pos->racine, val);
+    insert_element_in_avl(pos->racine, val);
 #endif
 }
 
@@ -35,7 +35,7 @@ void insert_element_in_collection(Collection *pos, const Element val)
 int search_element_in_collection(const Collection *collection, const Element element)
 {
 #ifdef AVL
-    return search_element_in_Avl((Avl *) collection->racine, element);
+    return search_element_in_avl((Avl *) collection->racine, element);
 #endif
 }
 
