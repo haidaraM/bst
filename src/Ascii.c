@@ -10,6 +10,8 @@
 #include <string.h>
 #include "Avl.h"
 #include "Utils.h"
+#include "Rbt.h"
+#include "Collection.h"
 
 
 #define MAX_HEIGHT 1000
@@ -207,15 +209,15 @@ static void compute_edge_lengths(Asciinode *node)
     node->height = h;
 }
 
-static Asciinode *build_ascii_tree_recursive(Node *t)
+static Asciinode *build_ascii_tree_recursive_avl(Node *t)
 {
     Asciinode *asciinode;
 
     if (t == NULL) return NULL;
 
     asciinode = malloc(sizeof(Asciinode));
-    asciinode->left = build_ascii_tree_recursive(t->leftChild);
-    asciinode->right = build_ascii_tree_recursive(t->rightChild);
+    asciinode->left = build_ascii_tree_recursive_avl(t->leftChild);
+    asciinode->right = build_ascii_tree_recursive_avl(t->rightChild);
 
     if (asciinode->left != NULL)
     {
@@ -233,6 +235,33 @@ static Asciinode *build_ascii_tree_recursive(Node *t)
     return asciinode;
 }
 
+static Asciinode *build_ascii_tree_recursive_rbtree(RBNode *t)
+{
+    Asciinode *asciinode;
+
+    if (t == NULL) return NULL;
+
+    asciinode = malloc(sizeof(Asciinode));
+    asciinode->left = build_ascii_tree_recursive_rbtree(t->leftChild);
+    asciinode->right = build_ascii_tree_recursive_rbtree(t->rightChild);
+
+    if (asciinode->left != NULL)
+    {
+        asciinode->left->parent_dir = -1;
+    }
+
+    if (asciinode->right != NULL)
+    {
+        asciinode->right->parent_dir = 1;
+    }
+
+    write_element_in_char_array(t->data, asciinode->label);
+    asciinode->lablen = strlen(asciinode->label);
+
+    return asciinode;
+}
+
+
 /**
  * @brief Copy the tree into the ascii node structre
  */
@@ -243,8 +272,12 @@ static Asciinode *build_ascii_tree(Collection *t)
 #ifdef AVL
     Avl *avl = (Avl *) t->racine;
     node = build_ascii_tree_recursive(avl->root);
-    node->parent_dir = 0;
+
+#elif RBT
+    RBTree * rbTree = (RBTree *) t->racine;
+    node = build_ascii_tree_recursive_rbtree(rbTree->root);
 #endif
+    node->parent_dir = 0;
 
     return node;
 }
