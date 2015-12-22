@@ -15,6 +15,8 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file);
 
 static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
+static void recursive_insertion(RBNode **pNoeud, RBNode * fatherNode, const Element element);
+
 
 void initialize_rbtree(RBTree *rbTree)
 {
@@ -35,7 +37,7 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element)
         rbTree->root->color = BLACK;
     } else
     {
-        insert_element_in_rbtree(rbTree, element);
+        recursive_insertion(&(rbTree->root),rbTree->root->father,element);
         /* TODO : rotation*/
     }
 }
@@ -136,5 +138,23 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file)
         write_node_in_file(noeud, file);
         recursive_write_digraph(noeud->leftChild, file);
         recursive_write_digraph(noeud->rightChild, file);
+    }
+}
+
+static void recursive_insertion(RBNode **pNoeud, RBNode * fatherNode,const Element element)
+{
+    if(*pNoeud == NULL)
+    {
+        *pNoeud = create_node(element);
+        (*pNoeud)->father = fatherNode;
+    } else
+    {
+        if (compare_element(element, (*pNoeud)->data) > 0) { /* element > info => on va à droite*/
+
+            recursive_insertion(&((*pNoeud)->rightChild),*pNoeud, element);
+
+        } else if (compare_element(element, (*pNoeud)->data) < 0) { /*element < info => on va à gauche*/
+            recursive_insertion(&((*pNoeud)->leftChild),*pNoeud, element);
+        }
     }
 }
