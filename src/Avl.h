@@ -2,8 +2,8 @@
  * @brief This module is the implementation of AVL tree
  * @file Avl.h
 */
-#ifndef _AVL
-#define _AVL
+#ifndef AVL_H
+#define AVL_H
 
 #include "Element.h"
 

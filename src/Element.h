@@ -1,8 +1,8 @@
 /**
  * @file Element.h
 */
-#ifndef _ELEMENT
-#define _ELEMENT
+#ifndef ELEMENT_H
+#define ELEMENT_H
 
 #include <stdio.h>
 /**< An element in the tree.

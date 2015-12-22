@@ -2,8 +2,8 @@
  * @brief This module represents a collection of elements
  * @file Collection.h
 */
-#ifndef _collection
-#define _collection
+#ifndef COLLECTION_H
+#define COLLECTION_H
 
 #include "Element.h"
 
