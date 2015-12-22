@@ -20,7 +20,7 @@ static Node *create_node(const Element element);
 
 static void rotate_avl(Avl *avl);
 
-static void recursive_testament(Node *noeud);
+static void recursive_free(Node *noeud);
 
 static void recursive_rotation(Node **noeud);
 
@@ -40,7 +40,7 @@ void initialize_avl(Avl *a)
 
 void free_avl(Avl *a)
 {
-    recursive_testament(a->root);
+    recursive_free(a->root);
 }
 
 void insert_element_in_avl(Avl *a, const Element element)
@@ -95,8 +95,7 @@ static void write_node_in_file(const Node *noeud, FILE *file)
 {
 
     static int idnumer = 0;
-
-    fprintf(file, "%d", noeud->data);
+    print_element(noeud->data,file);
     fprintf(file, "->");
     fprintf(file, "{");
     if (noeud->leftChild != NULL || noeud->rightChild != NULL)
@@ -149,12 +148,12 @@ static void recursive_write_digraph(const Node *noeud, FILE *file)
 }
 
 
-static void recursive_testament(Node *noeud)
+static void recursive_free(Node *noeud)
 {
     if (noeud != NULL)
     {
-        recursive_testament(noeud->rightChild);
-        recursive_testament(noeud->leftChild);
+        recursive_free(noeud->rightChild);
+        recursive_free(noeud->leftChild);
         free(noeud);
     }
 }
