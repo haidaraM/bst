@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
 # Select your bst type
 add_definitions(-DAVL)
-
+#add_definitions(-DARN)
 
 
 
@@ -21,6 +21,6 @@ set(SOURCE_FILES
     src/Ascii.h
     src/Avl.c
     src/Avl.h
-    src/main.c)
+    src/main.c src/Rbt.c src/Rbt.h)
 
 add_executable(bst ${SOURCE_FILES})
