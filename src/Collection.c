@@ -16,10 +16,10 @@ void initialize_collection(Collection *collection)
 }
 
 
-void testament_collection(Collection *collection)
+void free_collection(Collection *collection)
 {
 #ifdef AVL
-    testament_avl((Avl *) collection->racine);
+    free_avl((Avl *) collection->racine);
     free(collection->racine);
 #endif
 }

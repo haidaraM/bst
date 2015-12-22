@@ -38,7 +38,7 @@ void initialize_avl(Avl *a)
     a->root = NULL;
 }
 
-void testament_avl(Avl *a)
+void free_avl(Avl *a)
 {
     recursive_testament(a->root);
 }

@@ -27,7 +27,7 @@ void initialize_collection(Collection *collection);
  * @brief Testament of the collection
  * @param collection collection to free
  */
-void testament_collection(Collection *collection);
+void free_collection(Collection *collection);
 
 /**
  * @brief Insert an element in the collection

@@ -38,10 +38,10 @@ typedef struct
 void initialize_avl(Avl *avl);
 
 /**
- * @brief AVL testament
+ * @brief AVL free
  * @param avl to free
  */
-void testament_avl(Avl *avl);
+void free_avl(Avl *avl);
 
 /**
  * @brief Search an element in the tree

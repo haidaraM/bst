@@ -47,7 +47,7 @@ int main(int argc, char const *ar[])
     system(commande);
 
 
-    testament_collection(&a);
+    free_collection(&a);
 
     return 0;
 }
