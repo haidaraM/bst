@@ -84,8 +84,8 @@ static void recursive_free(RBNode *rbNode)
 static int recursive_search_element(const RBNode *rbNode, const Element element)
 {
     if (rbNode == NULL) return 0;
-    else if (compare_element(element, rbNode->data) > 0) return recursive_search_element(rbNode, element);
-    else if (compare_element(element, rbNode->data) < 0) return recursive_search_element(rbNode, element);
+    else if (compare_element(element, rbNode->data) > 0) return recursive_search_element(rbNode->rightChild, element);
+    else if (compare_element(element, rbNode->data) < 0) return recursive_search_element(rbNode->leftChild, element);
     else return 1;
 }
 
