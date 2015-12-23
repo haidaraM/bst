@@ -270,11 +270,11 @@ static Asciinode *build_ascii_tree(Collection *t)
     Asciinode *node;
     if (t == NULL) return NULL;
 #ifdef AVL
-    Avl *avl = (Avl *) t->racine;
+    Avl *avl = (Avl *) t->root;
     node = build_ascii_tree_recursive(avl->root);
 
 #elif RBT
-    RBTree *rbTree = (RBTree *) t->racine;
+    RBTree *rbTree = (RBTree *) t->root;
     node = build_ascii_tree_recursive_rbtree(rbTree->root);
 #endif
     node->parent_dir = 0;

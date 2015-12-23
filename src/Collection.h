@@ -13,7 +13,7 @@
  */
 typedef struct
 {
-    void *racine; /**< Pointer on the concrete implementation of collection : AVL or ... */
+    void *root; /**< Pointer on the concrete implementation of collection : AVL or ... */
 } Collection;
 
 
