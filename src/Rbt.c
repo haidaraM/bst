@@ -100,12 +100,13 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
 
         if (rbNode->leftChild != NULL)
         {
+            print_element(rbNode->leftChild->data,file);
             if (rbNode->leftChild->color == BLACK)
             {
-                fprintf(file, "%d [fillcolor=black]", rbNode->leftChild->data);
+                fprintf(file, " [fillcolor=black]");
             } else
             {
-                fprintf(file, "%d [fillcolor=red]", rbNode->leftChild->data);
+                fprintf(file, " [fillcolor=red]");
             }
         }
         else
@@ -115,12 +116,13 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
         fprintf(file, " ");
         if (rbNode->rightChild != NULL)
         {
+            print_element(rbNode->rightChild->data,file);
             if (rbNode->rightChild->color == BLACK)
             {
-                fprintf(file, "%d [fillcolor=black]", rbNode->rightChild->data);
+                fprintf(file, " [fillcolor=black]");
             } else
             {
-                fprintf(file, "%d [fillcolor=red]", rbNode->rightChild->data);
+                fprintf(file, " [fillcolor=red]");
             }
         }
         else
