@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -29,7 +28,7 @@ int main(int argc, char const *ar[])
     Collection a;
     initialize_collection(&a);
 
-    int i,element;
+    int i, element;
 
     srand((unsigned) time(NULL));
     for (i = 0; i < 10; ++i)

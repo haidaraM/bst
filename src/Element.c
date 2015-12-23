@@ -5,10 +5,11 @@
 #include "Element.h"
 
 
-void print_element(const Element e, FILE* stream)
+void print_element(const Element e, FILE *stream)
 {
-    if(stream != NULL) {
-        fprintf(stream,"%d", e);
+    if (stream != NULL)
+    {
+        fprintf(stream, "%d", e);
     }
 
 }

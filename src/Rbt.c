@@ -15,7 +15,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file);
 
 static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
-static void recursive_insertion(RBNode **pNoeud, RBNode * fatherNode, const Element element);
+static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element);
 
 
 void initialize_rbtree(RBTree *rbTree)
@@ -37,7 +37,7 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element)
         rbTree->root->color = BLACK;
     } else
     {
-        recursive_insertion(&(rbTree->root),rbTree->root->father,element);
+        recursive_insertion(&(rbTree->root), rbTree->root->father, element);
         /* TODO : rotation*/
     }
 }
@@ -100,7 +100,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
 
         if (rbNode->leftChild != NULL)
         {
-            print_element(rbNode->leftChild->data,file);
+            print_element(rbNode->leftChild->data, file);
             if (rbNode->leftChild->color == BLACK)
             {
                 fprintf(file, " [fillcolor=black]");
@@ -116,7 +116,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
         fprintf(file, " ");
         if (rbNode->rightChild != NULL)
         {
-            print_element(rbNode->rightChild->data,file);
+            print_element(rbNode->rightChild->data, file);
             if (rbNode->rightChild->color == BLACK)
             {
                 fprintf(file, " [fillcolor=black]");
@@ -143,20 +143,22 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file)
     }
 }
 
-static void recursive_insertion(RBNode **pNoeud, RBNode * fatherNode,const Element element)
+static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element)
 {
-    if(*pNoeud == NULL)
+    if (*pNoeud == NULL)
     {
         *pNoeud = create_node(element);
         (*pNoeud)->father = fatherNode;
     } else
     {
-        if (compare_element(element, (*pNoeud)->data) > 0) { /* element > info => on va à droite*/
+        if (compare_element(element, (*pNoeud)->data) > 0)
+        { /* element > info => on va à droite*/
 
-            recursive_insertion(&((*pNoeud)->rightChild),*pNoeud, element);
+            recursive_insertion(&((*pNoeud)->rightChild), *pNoeud, element);
 
-        } else if (compare_element(element, (*pNoeud)->data) < 0) { /*element < info => on va à gauche*/
-            recursive_insertion(&((*pNoeud)->leftChild),*pNoeud, element);
+        } else if (compare_element(element, (*pNoeud)->data) < 0)
+        { /*element < info => on va à gauche*/
+            recursive_insertion(&((*pNoeud)->leftChild), *pNoeud, element);
         }
     }
 }

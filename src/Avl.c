@@ -95,30 +95,32 @@ static void write_node_in_file(const Node *noeud, FILE *file)
 {
 
     static int idnumer = 0;
-    print_element(noeud->data,file);
+    print_element(noeud->data, file);
     fprintf(file, "->");
     fprintf(file, "{");
     if (noeud->leftChild != NULL || noeud->rightChild != NULL)
     {
 
-        if (noeud->leftChild != NULL){
-
-            print_element(noeud->leftChild->data,file);
+        if (noeud->leftChild != NULL)
+        {
+            print_element(noeud->leftChild->data, file);
         }
-        else{
+        else
+        {
             fprintf(file, "id%d [shape=point]", idnumer++);
         }
 
         fprintf(file, " ");
 
-        if (noeud->rightChild != NULL){
-            print_element(noeud->rightChild->data,file);
+        if (noeud->rightChild != NULL)
+        {
+            print_element(noeud->rightChild->data, file);
         }
-        else{
+        else
+        {
             fprintf(file, "id%d [shape=point]", idnumer++);
         }
     }
-
 
     fprintf(file, "};\n");
 }
@@ -132,7 +134,6 @@ static Node *create_node(const Element element)
     n->data = element;
     n->rightChild = NULL;
     n->leftChild = NULL;
-
     return n;
 }
 

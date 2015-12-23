@@ -10,7 +10,10 @@
  * @enum Color
  * @brief Enum to specify the node color
  */
-typedef enum  {RED,BLACK} Color;
+typedef enum
+{
+    RED, BLACK
+} Color;
 
 /**
  * @struct RBNode
@@ -18,10 +21,10 @@ typedef enum  {RED,BLACK} Color;
  */
 typedef struct RBNode
 {
-    struct RBNode *leftChild; /**< Left child of the node */
-    struct RBNode *rightChild;  /**< Right child of the node */
-    struct RBNode * father; /**< The father of the node */
-    Element data; /**< Data contained in the node */
+    struct RBNode *leftChild;    /**< Left child of the node */
+    struct RBNode *rightChild;    /**< Right child of the node */
+    struct RBNode *father;    /**< The father of the node */
+    Element data;    /**< Data contained in the node */
     Color color; /**< Node color */
 } RBNode;
 
@@ -46,7 +49,6 @@ int search_element_in_rbtree(const RBTree *rbTree, const Element element);
 
 
 void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName);
-
 
 
 #endif

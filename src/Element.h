@@ -5,6 +5,7 @@
 #define ELEMENT_H
 
 #include <stdio.h>
+
 /**< An element in the tree.
  * You can define your own element but you have to redefine the following functions */
 typedef int Element;

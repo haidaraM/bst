@@ -274,7 +274,7 @@ static Asciinode *build_ascii_tree(Collection *t)
     node = build_ascii_tree_recursive(avl->root);
 
 #elif RBT
-    RBTree * rbTree = (RBTree *) t->racine;
+    RBTree *rbTree = (RBTree *) t->racine;
     node = build_ascii_tree_recursive_rbtree(rbTree->root);
 #endif
     node->parent_dir = 0;

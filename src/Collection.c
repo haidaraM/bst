@@ -14,7 +14,7 @@ void initialize_collection(Collection *collection)
     initialize_avl((Avl*)collection->racine);
 #elif RBT
     collection->racine = (RBTree *) malloc(sizeof(RBTree));
-    initialize_rbtree((RBTree*)collection->racine);
+    initialize_rbtree((RBTree *) collection->racine);
 #endif
 }
 
@@ -25,7 +25,7 @@ void free_collection(Collection *collection)
     free_avl((Avl *) collection->racine);
     free(collection->racine);
 #elif RBT
-    free_rbtree((RBTree*)collection->racine);
+    free_rbtree((RBTree *) collection->racine);
     free(collection->racine);
 #endif
 }
@@ -35,7 +35,7 @@ void insert_element_in_collection(Collection *pos, const Element val)
 #ifdef AVL
     insert_element_in_avl((Avl*)pos->racine, val);
 #elif RBT
-    insert_element_in_rbtree((RBTree*)pos->racine,val);
+    insert_element_in_rbtree((RBTree *) pos->racine, val);
 #endif
 }
 
@@ -46,7 +46,7 @@ int search_element_in_collection(const Collection *collection, const Element ele
     return search_element_in_avl((Avl *) collection->racine, element);
 
 #elif RBT
-    return search_element_in_rbtree((RBTree*)collection->racine,element);
+    return search_element_in_rbtree((RBTree *) collection->racine, element);
 #endif
 }
 
@@ -55,7 +55,7 @@ void create_dot_file_for_collection(const Collection *collection, const char *fi
 #ifdef AVL
     create_dot_file_for_avl((Avl *) collection->racine, fileName);
 #elif RBT
-    create_dot_file_for_rbtree((RBTree*)collection->racine,fileName);
+    create_dot_file_for_rbtree((RBTree *) collection->racine, fileName);
 #endif
 
 }
