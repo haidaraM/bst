@@ -271,7 +271,7 @@ static Asciinode *build_ascii_tree(Collection *t)
     if (t == NULL) return NULL;
 #ifdef AVL
     Avl *avl = (Avl *) t->root;
-    node = build_ascii_tree_recursive(avl->root);
+    node = build_ascii_tree_recursive_avl(avl->root);
 
 #elif RBT
     RBTree *rbTree = (RBTree *) t->root;
