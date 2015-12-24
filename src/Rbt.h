@@ -21,8 +21,8 @@ typedef enum
  */
 typedef struct RBNode
 {
-    struct RBNode *leftChild;    /**< Left child of the node */
-    struct RBNode *rightChild;    /**< Right child of the node */
+    struct RBNode *left_child;    /**< Left child of the node */
+    struct RBNode *right_child;    /**< Right child of the node */
     struct RBNode *father;    /**< The father of the node */
     Element data;    /**< Data contained in the node */
     Color color; /**< Node color */

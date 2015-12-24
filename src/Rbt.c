@@ -66,8 +66,8 @@ static RBNode *create_node(const Element element)
     rbNode->data = element;
     rbNode->color = RED;
     rbNode->father = NULL;
-    rbNode->leftChild = NULL;
-    rbNode->rightChild = NULL;
+    rbNode->left_child = NULL;
+    rbNode->right_child = NULL;
 
     return rbNode;
 }
@@ -76,8 +76,8 @@ static void recursive_free(RBNode *rbNode)
 {
     if (rbNode != NULL)
     {
-        recursive_free(rbNode->leftChild);
-        recursive_free(rbNode->rightChild);
+        recursive_free(rbNode->left_child);
+        recursive_free(rbNode->right_child);
         free(rbNode);
     }
 }
@@ -85,8 +85,8 @@ static void recursive_free(RBNode *rbNode)
 static int recursive_search_element(const RBNode *rbNode, const Element element)
 {
     if (rbNode == NULL) return 0;
-    else if (compare_element(element, rbNode->data) > 0) return recursive_search_element(rbNode->rightChild, element);
-    else if (compare_element(element, rbNode->data) < 0) return recursive_search_element(rbNode->leftChild, element);
+    else if (compare_element(element, rbNode->data) > 0) return recursive_search_element(rbNode->right_child, element);
+    else if (compare_element(element, rbNode->data) < 0) return recursive_search_element(rbNode->left_child, element);
     else return 1;
 }
 
@@ -100,13 +100,13 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
     fprintf(file, "->");
     fprintf(file, "{ ");
 
-    if (rbNode->leftChild != NULL || rbNode->rightChild != NULL)
+    if (rbNode->left_child != NULL || rbNode->right_child != NULL)
     {
 
-        if (rbNode->leftChild != NULL)
+        if (rbNode->left_child != NULL)
         {
-            print_element(rbNode->leftChild->data, file);
-            if (rbNode->leftChild->color == BLACK)
+            print_element(rbNode->left_child->data, file);
+            if (rbNode->left_child->color == BLACK)
             {
                 fprintf(file, black_color);
             } else
@@ -118,10 +118,10 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
             fprintf(file, "id%d [shape=point]", idnumer++);
 
         fprintf(file, " ");
-        if (rbNode->rightChild != NULL)
+        if (rbNode->right_child != NULL)
         {
-            print_element(rbNode->rightChild->data, file);
-            if (rbNode->rightChild->color == BLACK)
+            print_element(rbNode->right_child->data, file);
+            if (rbNode->right_child->color == BLACK)
             {
                 fprintf(file, black_color);
             } else
@@ -141,8 +141,8 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file)
     if (noeud != NULL)
     {
         write_node_in_file(noeud, file);
-        recursive_write_digraph(noeud->leftChild, file);
-        recursive_write_digraph(noeud->rightChild, file);
+        recursive_write_digraph(noeud->left_child, file);
+        recursive_write_digraph(noeud->right_child, file);
     }
 }
 
@@ -157,11 +157,11 @@ static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Eleme
         if (compare_element(element, (*pNoeud)->data) > 0)
         { /* element > info => on va à droite*/
 
-            recursive_insertion(&((*pNoeud)->rightChild), *pNoeud, element);
+            recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
         { /*element < info => on va à gauche*/
-            recursive_insertion(&((*pNoeud)->leftChild), *pNoeud, element);
+            recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
         }
     }
 }

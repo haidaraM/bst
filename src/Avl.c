@@ -75,10 +75,10 @@ int recursive_search_element(Node *noeud, const Element element)
     {
         if (compare_element(element, noeud->data) > 0)
         {
-            return recursive_search_element(noeud->rightChild, element);
+            return recursive_search_element(noeud->right_child, element);
         } else if (compare_element(element, noeud->data) < 0)
         {
-            return recursive_search_element(noeud->leftChild, element);
+            return recursive_search_element(noeud->left_child, element);
         } else
             return 1;
     }
@@ -98,12 +98,12 @@ static void write_node_in_file(const Node *noeud, FILE *file)
     print_element(noeud->data, file);
     fprintf(file, "->");
     fprintf(file, "{");
-    if (noeud->leftChild != NULL || noeud->rightChild != NULL)
+    if (noeud->left_child != NULL || noeud->right_child != NULL)
     {
 
-        if (noeud->leftChild != NULL)
+        if (noeud->left_child != NULL)
         {
-            print_element(noeud->leftChild->data, file);
+            print_element(noeud->left_child->data, file);
         }
         else
         {
@@ -112,9 +112,9 @@ static void write_node_in_file(const Node *noeud, FILE *file)
 
         fprintf(file, " ");
 
-        if (noeud->rightChild != NULL)
+        if (noeud->right_child != NULL)
         {
-            print_element(noeud->rightChild->data, file);
+            print_element(noeud->right_child->data, file);
         }
         else
         {
@@ -132,8 +132,8 @@ static Node *create_node(const Element element)
 {
     Node *n = malloc(sizeof(Node));
     n->data = element;
-    n->rightChild = NULL;
-    n->leftChild = NULL;
+    n->right_child = NULL;
+    n->left_child = NULL;
     return n;
 }
 
@@ -143,8 +143,8 @@ static void recursive_write_digraph(const Node *noeud, FILE *file)
     if (noeud != NULL)
     {
         write_node_in_file(noeud, file);
-        recursive_write_digraph(noeud->leftChild, file);
-        recursive_write_digraph(noeud->rightChild, file);
+        recursive_write_digraph(noeud->left_child, file);
+        recursive_write_digraph(noeud->right_child, file);
     }
 }
 
@@ -153,8 +153,8 @@ static void recursive_free(Node *noeud)
 {
     if (noeud != NULL)
     {
-        recursive_free(noeud->rightChild);
-        recursive_free(noeud->leftChild);
+        recursive_free(noeud->right_child);
+        recursive_free(noeud->left_child);
         free(noeud);
     }
 }
@@ -170,11 +170,11 @@ static void recursive_insertion(Node **pNoeud, const Element element)
         if (compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => on va à droite*/
 
-            recursive_insertion(&((*pNoeud)->rightChild), element);
+            recursive_insertion(&((*pNoeud)->right_child), element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
         { /*element < data => on va à gauche*/
-            recursive_insertion(&((*pNoeud)->leftChild), element);
+            recursive_insertion(&((*pNoeud)->left_child), element);
         }
     }
 }
@@ -185,17 +185,17 @@ static void recursive_rotation(Node **noeud)
     if (*noeud != NULL)
     {
 
-        int hauteurGauche = compute_height((*noeud)->leftChild);
-        int hauteurDroit = compute_height((*noeud)->rightChild);
+        int hauteurGauche = compute_height((*noeud)->left_child);
+        int hauteurDroit = compute_height((*noeud)->right_child);
 
 
         if (hauteurGauche - hauteurDroit > 1)
         { /* déséquilibré vers la gauche => rotation vers la droite*/
             if (hauteurGauche - hauteurDroit == 2)
             {
-                if ((*noeud)->leftChild->rightChild != NULL)
+                if ((*noeud)->left_child->right_child != NULL)
                 {
-                    (*noeud)->leftChild = left_rotation((*noeud)->leftChild);
+                    (*noeud)->left_child = left_rotation((*noeud)->left_child);
                 }
             }
             *noeud = right_rotation(*noeud);
@@ -203,16 +203,16 @@ static void recursive_rotation(Node **noeud)
         { /* déséquilibré vers la droite => rotation vers la gauche*/
             if (hauteurDroit - hauteurGauche == 2)
             {
-                if ((*noeud)->rightChild->leftChild != NULL)
+                if ((*noeud)->right_child->left_child != NULL)
                 {
-                    (*noeud)->rightChild = right_rotation((*noeud)->rightChild);
+                    (*noeud)->right_child = right_rotation((*noeud)->right_child);
                 }
             }
             *noeud = left_rotation(*noeud);
         }
 
-        recursive_rotation(&(*noeud)->rightChild);
-        recursive_rotation(&(*noeud)->leftChild);
+        recursive_rotation(&(*noeud)->right_child);
+        recursive_rotation(&(*noeud)->left_child);
 
     }
 }
@@ -229,9 +229,9 @@ static void rotate_avl(Avl *avl)
 static Node *right_rotation(Node *racine)
 {
     Node *nouvelleRacine;
-    nouvelleRacine = racine->leftChild;
-    racine->leftChild = nouvelleRacine->rightChild;
-    nouvelleRacine->rightChild = racine;
+    nouvelleRacine = racine->left_child;
+    racine->left_child = nouvelleRacine->right_child;
+    nouvelleRacine->right_child = racine;
     return nouvelleRacine;
 
 }
@@ -240,9 +240,9 @@ static Node *right_rotation(Node *racine)
 static Node *left_rotation(Node *racine)
 {
     Node *nouvelleRacine;
-    nouvelleRacine = racine->rightChild;
-    racine->rightChild = nouvelleRacine->leftChild;
-    nouvelleRacine->leftChild = racine;
+    nouvelleRacine = racine->right_child;
+    racine->right_child = nouvelleRacine->left_child;
+    nouvelleRacine->left_child = racine;
     return nouvelleRacine;
 }
 
@@ -251,5 +251,5 @@ static int compute_height(const Node *noeud)
 {
     if (noeud == NULL)
         return 0;
-    else return 1 + MAX(compute_height(noeud->rightChild), compute_height(noeud->leftChild));
+    else return 1 + MAX(compute_height(noeud->right_child), compute_height(noeud->left_child));
 }

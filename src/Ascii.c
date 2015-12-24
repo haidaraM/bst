@@ -216,8 +216,8 @@ static Asciinode *build_ascii_tree_recursive_avl(Node *t)
     if (t == NULL) return NULL;
 
     asciinode = malloc(sizeof(Asciinode));
-    asciinode->left = build_ascii_tree_recursive_avl(t->leftChild);
-    asciinode->right = build_ascii_tree_recursive_avl(t->rightChild);
+    asciinode->left = build_ascii_tree_recursive_avl(t->left_child);
+    asciinode->right = build_ascii_tree_recursive_avl(t->right_child);
 
     if (asciinode->left != NULL)
     {
@@ -242,8 +242,8 @@ static Asciinode *build_ascii_tree_recursive_rbtree(RBNode *t)
     if (t == NULL) return NULL;
 
     asciinode = malloc(sizeof(Asciinode));
-    asciinode->left = build_ascii_tree_recursive_rbtree(t->leftChild);
-    asciinode->right = build_ascii_tree_recursive_rbtree(t->rightChild);
+    asciinode->left = build_ascii_tree_recursive_rbtree(t->left_child);
+    asciinode->right = build_ascii_tree_recursive_rbtree(t->right_child);
 
     if (asciinode->left != NULL)
     {

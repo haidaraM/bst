@@ -16,8 +16,8 @@
 typedef struct Node
 {
 
-    struct Node *leftChild;    /**< Right child of the node */
-    struct Node *rightChild;    /**< Left child of the node */
+    struct Node *left_child;    /**< Right child of the node */
+    struct Node *right_child;    /**< Left child of the node */
     Element data; /**< Data contained in the node */
 } Node;
 
