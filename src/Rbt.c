@@ -92,10 +92,14 @@ static int recursive_search_element(const RBNode *rbNode, const Element element)
 
 static void write_node_in_file(const RBNode *rbNode, FILE *file)
 {
+    const char black_color[] =" [fillcolor=black]";
+    const char red_color[]=" [fillcolor=red]";
+
     static int idnumer = 0;
     print_element(rbNode->data, file);
     fprintf(file, "->");
     fprintf(file, "{ ");
+
     if (rbNode->leftChild != NULL || rbNode->rightChild != NULL)
     {
 
@@ -104,10 +108,10 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
             print_element(rbNode->leftChild->data, file);
             if (rbNode->leftChild->color == BLACK)
             {
-                fprintf(file, " [fillcolor=black]");
+                fprintf(file, black_color);
             } else
             {
-                fprintf(file, " [fillcolor=red]");
+                fprintf(file, red_color);
             }
         }
         else
@@ -119,16 +123,15 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
             print_element(rbNode->rightChild->data, file);
             if (rbNode->rightChild->color == BLACK)
             {
-                fprintf(file, " [fillcolor=black]");
+                fprintf(file, black_color);
             } else
             {
-                fprintf(file, " [fillcolor=red]");
+                fprintf(file, red_color);
             }
         }
         else
             fprintf(file, "id%d [shape=point]", idnumer++);
     }
-
 
     fprintf(file, "};\n");
 }
