@@ -1,0 +1,7 @@
+language : c
+compiler: gcc
+before_install:
+    - sudo apt-get update -q
+
+install:
+    - sudo apt-get install valgrind

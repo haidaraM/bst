@@ -1,6 +1,7 @@
 # BST
 Implementation of some Binary Search Trees in C
 
+[![Build Status](https://travis-ci.org/haidaraM/bst.svg?branch=master)](https://travis-ci.org/haidaraM/bst)
 
 ## Trees
 The following BST are implemented
