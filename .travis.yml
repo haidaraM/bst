@@ -11,3 +11,6 @@ before_script:
 
 script:
   - echo "Test todo"
+
+notifications:
+  email: false
