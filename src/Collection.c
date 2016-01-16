@@ -59,3 +59,10 @@ void create_dot_file_for_collection(const Collection *collection, const char *fi
 #endif
 
 }
+
+void remove_element_from_collection(Collection *collection, const Element element)
+{
+#ifdef AVL
+#elif RBT
+#endif
+}

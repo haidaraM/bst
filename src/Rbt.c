@@ -165,3 +165,8 @@ static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Eleme
         }
     }
 }
+
+void remove_element_from_rbtree(RBTree *rbTree, const Element element)
+{
+
+}

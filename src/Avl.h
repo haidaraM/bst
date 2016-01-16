@@ -52,6 +52,9 @@ void free_avl(Avl *avl);
  */
 int search_element_in_avl(const Avl *avl, const Element element);
 
+
+void remove_element_from_avl(Avl * avl, const Element element);
+
 /**
  * @brief Get the height of the tree
  * @param avl AVL you want the height

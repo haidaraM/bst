@@ -37,6 +37,9 @@ void free_collection(Collection *collection);
 void insert_element_in_collection(Collection *collection, const Element element);
 
 
+void remove_element_from_collection(Collection * collection, const Element element);
+
+
 /**
  * @brief Search in element in the collection
  * @param collection collection in which you want to perfom the search

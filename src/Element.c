@@ -22,5 +22,4 @@ int compare_element(const Element e1, const Element e2)
 void write_element_in_char_array(const Element e, char *output)
 {
     sprintf(output, "%d", e);
-
 }

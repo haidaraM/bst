@@ -253,3 +253,8 @@ static int compute_height(const Node *noeud)
         return 0;
     else return 1 + MAX(compute_height(noeud->right_child), compute_height(noeud->left_child));
 }
+
+void remove_element_from_avl(Avl *avl, const Element element)
+{
+
+}
