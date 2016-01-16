@@ -1,7 +1,13 @@
-language : c
+language: c
 compiler: gcc
 before_install:
-    - sudo apt-get update -q
+  - sudo apt-get update -q
 
 install:
-    - sudo apt-get install valgrind
+  - sudo apt-get install valgrind
+
+before_script:
+  - mkdir bin
+
+script:
+  - echo "Test todo"
