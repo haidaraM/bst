@@ -66,7 +66,7 @@ void create_dot_file_for_avl(const Avl *avl, const char *fileName)
     fclose(fichierDigraph);
 }
 
-int recursive_search_element(Node *noeud, const Element element)
+int recursive_search_element(const Node *noeud, const Element element)
 {
     if (noeud == NULL)
     {
@@ -224,24 +224,24 @@ static void rotate_avl(Avl *avl)
 
 
 
-static Node *right_rotation(Node *racine)
+static Node *right_rotation(Node *root)
 {
-    Node *nouvelleRacine;
-    nouvelleRacine = racine->left_child;
-    racine->left_child = nouvelleRacine->right_child;
-    nouvelleRacine->right_child = racine;
-    return nouvelleRacine;
+    Node *new_root;
+    new_root = root->left_child;
+    root->left_child = new_root->right_child;
+    new_root->right_child = root;
+    return new_root;
 
 }
 
 
-static Node *left_rotation(Node *racine)
+static Node *left_rotation(Node *root)
 {
-    Node *nouvelleRacine;
-    nouvelleRacine = racine->right_child;
-    racine->right_child = nouvelleRacine->left_child;
-    nouvelleRacine->left_child = racine;
-    return nouvelleRacine;
+    Node *new_root;
+    new_root = root->right_child;
+    root->right_child = new_root->left_child;
+    new_root->left_child = root;
+    return new_root;
 }
 
 
