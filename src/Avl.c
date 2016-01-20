@@ -168,12 +168,12 @@ static void recursive_insertion(Node **pNoeud, const Element element)
     } else
     {
         if (compare_element(element, (*pNoeud)->data) > 0)
-        { /* element > data => on va à droite*/
+        { /* element > data => we go right*/
 
             recursive_insertion(&((*pNoeud)->right_child), element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
-        { /*element < data => on va à gauche*/
+        { /* element < data => we go left*/
             recursive_insertion(&((*pNoeud)->left_child), element);
         }
     }
@@ -190,7 +190,7 @@ static void recursive_rotation(Node **noeud)
 
 
         if (hauteurGauche - hauteurDroit > 1)
-        { /* déséquilibré vers la gauche => rotation vers la droite*/
+        { /* unbalanced left => right rotation*/
             if (hauteurGauche - hauteurDroit == 2)
             {
                 if ((*noeud)->left_child->right_child != NULL)
@@ -200,7 +200,7 @@ static void recursive_rotation(Node **noeud)
             }
             *noeud = right_rotation(*noeud);
         } else if (hauteurDroit - hauteurGauche > 1)
-        { /* déséquilibré vers la droite => rotation vers la gauche*/
+        { /*unbalanced right => left rotation*/
             if (hauteurDroit - hauteurGauche == 2)
             {
                 if ((*noeud)->right_child->left_child != NULL)
@@ -223,9 +223,7 @@ static void rotate_avl(Avl *avl)
 }
 
 
-/**
- * Fonction de rotation droite
- */
+
 static Node *right_rotation(Node *racine)
 {
     Node *nouvelleRacine;
@@ -236,7 +234,7 @@ static Node *right_rotation(Node *racine)
 
 }
 
-/*Fonction de rotation gauche*/
+
 static Node *left_rotation(Node *racine)
 {
     Node *nouvelleRacine;

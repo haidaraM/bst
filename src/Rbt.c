@@ -155,12 +155,12 @@ static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Eleme
     } else
     {
         if (compare_element(element, (*pNoeud)->data) > 0)
-        { /* element > info => on va à droite*/
+        { /* element > data => we go right*/
 
             recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
-        { /*element < info => on va à gauche*/
+        { /* element < data => we go left*/
             recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
         }
     }
