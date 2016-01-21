@@ -17,6 +17,11 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
 static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element);
 
+static RBNode *right_rotation(RBNode *root);
+
+static RBNode *left_rotation(RBNode *root);
+
+static void rotate_rbtree(RBTree *tree);
 
 void initialize_rbtree(RBTree *rbTree)
 {
@@ -38,8 +43,13 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element)
     } else
     {
         recursive_insertion(&(rbTree->root), rbTree->root->father, element);
-        /* TODO : rotation*/
+        rotate_rbtree(rbTree);
     }
+}
+
+static void rotate_rbtree(RBTree *tree)
+{
+
 }
 
 int search_element_in_rbtree(const RBTree *rbTree, const Element element)
@@ -170,3 +180,107 @@ void remove_element_from_rbtree(RBTree *rbTree, const Element element)
 {
 
 }
+
+
+/**
+       10               7
+      /  \             / \
+     /    \           /   \
+    7      12   =>   6    10
+   / \                   /  \
+  /   \                 /    \
+ 6     8               8     12
+
+ */
+
+RBNode *right_rotation(RBNode *root)
+{
+    RBNode *new_root;
+    new_root = root->left_child;
+
+    /* the new father of new_root is the father of the old root*/
+    new_root->father = root->father;
+    root->left_child = new_root->right_child;
+    if(new_root->right_child != NULL)
+    {
+        new_root->right_child->father = root;
+    }
+
+    /* the old root father become the new root*/
+    root->father = new_root;
+    new_root->right_child = root;
+    return new_root;
+}
+
+
+/**
+       10               7
+      /  \             / \
+     /    \           /   \
+    7      12   <=   6    10
+   / \                   /  \
+  /   \                 /    \
+ 6     8               8     12
+
+ */
+RBNode *left_rotation(RBNode *root)
+{
+    RBNode *new_root;
+    new_root = root->right_child;
+
+    /* the new father of new_root is the father of the old root*/
+    new_root->father = root->father;
+    root->right_child = new_root->left_child;
+    if(new_root->left_child != NULL)
+    {
+        new_root->left_child->father = root;
+    }
+    /* the old root father become the new root*/
+    root->father = new_root;
+    new_root->left_child = root;
+    return new_root;
+}
+
+
+void test_right_rotation()
+{
+    RBNode root_father,*root, root_left_child,root_right_child,root_left_child_left,root_left_child_right;
+    root = malloc(sizeof(RBNode));
+
+    root_left_child_right.data = 8;
+    root_left_child_right.right_child = NULL;
+    root_left_child_right.left_child = NULL;
+    root_left_child_right.father = &root_left_child;
+
+    root_left_child_left.data = 6;
+    root_left_child_left.right_child = NULL;
+    root_left_child_left.left_child = NULL;
+    root_left_child_left.father = &root_left_child;
+
+    root_left_child.data = 7;
+    root_left_child.left_child = &root_left_child_left;
+    root_left_child.right_child = NULL;
+    root_left_child.father = root;
+
+    root_right_child.data= 12;
+    root_right_child.left_child = NULL;
+    root_right_child.right_child = NULL;
+    root_right_child.father = root;
+
+
+
+    root->data = 10;
+    root->left_child = &root_left_child;
+    root->right_child = &root_right_child;
+    root->father = &root_father;
+
+    root_father.right_child = root;
+    root_father.left_child = NULL;
+    root_father.data = 9;
+    root_father.father = NULL;
+
+
+    root=right_rotation(root);
+
+}
+

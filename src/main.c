@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "Collection.h"
 #include "Ascii.h"
+#include "Rbt.h"
 
 
 
@@ -22,6 +23,7 @@
 #define valMax 1000
 
 
+
 int main(int argc, char const *ar[])
 {
 
@@ -37,7 +39,7 @@ int main(int argc, char const *ar[])
         insert_element_in_collection(&a, element);
     }
 
-    show_collection_in_ascii(&a);
+    /*show_collection_in_ascii(&a);*/
 
     const char fichier[] = "arbre.gv";
     char commande[256];
