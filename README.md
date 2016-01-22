@@ -42,3 +42,8 @@ You can also draw with Graphviz. The `create_dot_file_for_collection` create a d
 dot -Tsvg generatedFile > tree_in_svg.svg
 ```
 ![tree_png](tree.png)
+
+### TODO
+ - Use a key/value system to store element in collection
+ - Implement remove, size functions
+ 
