@@ -53,4 +53,6 @@ void remove_element_from_rbtree(RBTree * rbTree, const Element element);
 void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName);
 
 
+void test_left_rotation();
+
 #endif

@@ -33,7 +33,7 @@ int main(int argc, char const *ar[])
     int i, element;
 
     srand((unsigned) time(NULL));
-    for (i = 0; i < 10; ++i)
+    for (i = 0; i < 5; ++i)
     {
         element = rand() % (valMax + 1);
         insert_element_in_collection(&a, element);
@@ -48,7 +48,8 @@ int main(int argc, char const *ar[])
     system(commande);
 
 
-    free_collection(&a);
+   /* free_collection(&a);*/
+
 
     return 0;
 }

@@ -50,7 +50,65 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element)
 
 static void rotate_rbtree(RBTree *rbTree, RBNode *node)
 {
+    while (node != rbTree->root && node->father->color == RED)
+    {
+        if (node->father == node->father->father->left_child)
+        {
+            RBNode *tmp = node->father->father->right_child;
+            if (tmp != NULL && tmp->color == RED)
+            {
+                node->father->color = BLACK;
+                tmp->color = BLACK;
+                node->father->father->color = RED;
+                node = node->father->father;
+            } else
+            {
+                if (node == node->father->right_child)
+                {
+                    node = node->father;
+                    node = left_rotation(node);
+                }
 
+                node->father->color = BLACK;
+                node->father->father->color = RED;
+
+                if(node->father->father == rbTree->root){
+                    rbTree->root = right_rotation(rbTree->root);
+                } else {
+
+                    node->father->father = right_rotation(node->father->father);
+                }
+            }
+        } else
+        {
+            RBNode *tmp = node->father->father->left_child;
+            if (tmp != NULL && tmp->color == RED)
+            {
+                node->father->color = BLACK;
+                tmp->color = BLACK;
+                node->father->father->color = RED;
+                node = node->father->father;
+            } else
+            {
+                if(node == node->father->left_child){
+                    node = node->father;
+                    node = right_rotation(node);
+                }
+
+                node->father->color = BLACK;
+                node->father->father->color = RED;
+
+                if(node->father->father == rbTree->root){
+                    rbTree->root = left_rotation(rbTree->root);
+                } else {
+                    node->father->father = left_rotation(node->father->father);
+                }
+
+            }
+        }
+    }
+
+    rbTree->root->color = BLACK;
 }
 
 int search_element_in_rbtree(const RBTree *rbTree, const Element element)
