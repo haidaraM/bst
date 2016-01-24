@@ -4,6 +4,7 @@
 #include "Rbt.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 static RBNode *create_node(const Element element);
 
@@ -15,13 +16,13 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file);
 
 static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
-static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element);
+static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element);
 
 static RBNode *right_rotation(RBNode *root);
 
 static RBNode *left_rotation(RBNode *root);
 
-static void rotate_rbtree(RBTree *tree);
+static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 
 void initialize_rbtree(RBTree *rbTree)
 {
@@ -42,12 +43,12 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element)
         rbTree->root->color = BLACK;
     } else
     {
-        recursive_insertion(&(rbTree->root), rbTree->root->father, element);
-        rotate_rbtree(rbTree);
+        RBNode *inserted_node = recursive_insertion(&(rbTree->root), rbTree->root->father, element);
+        rotate_rbtree(rbTree, inserted_node);
     }
 }
 
-static void rotate_rbtree(RBTree *tree)
+static void rotate_rbtree(RBTree *rbTree, RBNode *node)
 {
 
 }
@@ -102,8 +103,8 @@ static int recursive_search_element(const RBNode *rbNode, const Element element)
 
 static void write_node_in_file(const RBNode *rbNode, FILE *file)
 {
-    const char black_color[] =" [fillcolor=black]";
-    const char red_color[]=" [fillcolor=red]";
+    const char black_color[] = " [fillcolor=black]";
+    const char red_color[] = " [fillcolor=red]";
 
     static int idnumer = 0;
     print_element(rbNode->data, file);
@@ -156,24 +157,27 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file)
     }
 }
 
-static void recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element)
+static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element)
 {
     if (*pNoeud == NULL)
     {
         *pNoeud = create_node(element);
         (*pNoeud)->father = fatherNode;
+        return *pNoeud;
     } else
     {
         if (compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
-            recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
+            return recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
-            recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
+            return recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
         }
     }
+
+    return NULL;
 }
 
 void remove_element_from_rbtree(RBTree *rbTree, const Element element)
@@ -198,10 +202,20 @@ RBNode *right_rotation(RBNode *root)
     RBNode *new_root;
     new_root = root->left_child;
 
+    /* update the father to point to the new child*/
+    if(root->father != NULL){
+        if(root->father->right_child == root)
+        {
+            root->father->right_child = new_root;
+        } else {
+            root->father->left_child = new_root;
+        }
+    }
+
     /* the new father of new_root is the father of the old root*/
     new_root->father = root->father;
     root->left_child = new_root->right_child;
-    if(new_root->right_child != NULL)
+    if (new_root->right_child != NULL)
     {
         new_root->right_child->father = root;
     }
@@ -228,6 +242,17 @@ RBNode *left_rotation(RBNode *root)
     RBNode *new_root;
     new_root = root->right_child;
 
+
+    /* update the father to point to the new child*/
+    if(root->father != NULL){
+        if(root->father->right_child == root)
+        {
+            root->father->right_child = new_root;
+        } else {
+            root->father->left_child = new_root;
+        }
+    }
+
     /* the new father of new_root is the father of the old root*/
     new_root->father = root->father;
     root->right_child = new_root->left_child;
@@ -244,7 +269,7 @@ RBNode *left_rotation(RBNode *root)
 
 void test_right_rotation()
 {
-    RBNode root_father,*root, root_left_child,root_right_child,root_left_child_left,root_left_child_right;
+    RBNode root_father, *root, root_left_child, root_right_child, root_left_child_left, root_left_child_right;
     root = malloc(sizeof(RBNode));
 
     root_left_child_right.data = 8;
@@ -262,11 +287,10 @@ void test_right_rotation()
     root_left_child.right_child = NULL;
     root_left_child.father = root;
 
-    root_right_child.data= 12;
+    root_right_child.data = 12;
     root_right_child.left_child = NULL;
     root_right_child.right_child = NULL;
     root_right_child.father = root;
-
 
 
     root->data = 10;
@@ -280,7 +304,60 @@ void test_right_rotation()
     root_father.father = NULL;
 
 
-    root=right_rotation(root);
+    root = right_rotation(root);
 
 }
 
+
+
+/**
+       1                      1
+      / \                    / \
+     /   \                  /   \
+    0     2(pivot)         0     3
+           \      =>            / \
+            \                  /   \
+             3                2     4
+              \
+               \
+                4
+ */
+void test_left_rotation()
+{
+    RBNode *root = create_node(1);
+    root->left_child = create_node(0);
+    root->left_child->father = root;
+
+    RBNode *rightNode = create_node(2);
+    root->right_child = rightNode;
+    rightNode->father = root;
+
+    rightNode->right_child = create_node(3);
+    rightNode->right_child->father = rightNode;
+
+
+    rightNode->right_child->right_child = create_node(4);
+    rightNode->right_child->right_child->father = rightNode->right_child;
+
+    rightNode = left_rotation(rightNode);
+
+
+    assert(rightNode->data == 3);
+    assert(rightNode->father == root);
+    assert(rightNode->left_child->data == 2);
+    assert(rightNode->left_child->father == rightNode);
+    assert(root->right_child == rightNode);
+    assert(root->right_child->right_child->data == 4);
+    assert(root->father == NULL);
+    assert(rightNode->right_child->father == rightNode);
+
+
+
+
+    free(rightNode->right_child->right_child);
+    free(rightNode->right_child);
+    free(rightNode);
+    free(root);
+
+
+}
