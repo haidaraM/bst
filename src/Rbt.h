@@ -15,6 +15,12 @@ typedef enum
     RED, BLACK
 } Color;
 
+typedef enum {
+    LEFT_SIDE,
+    RIGHT_SIDE,
+    NO_SIDE
+} RBNodeSide;
+
 /**
  * @struct RBNode
  * @brief Represent a node in RB Tree
@@ -52,6 +58,17 @@ void remove_element_from_rbtree(RBTree * rbTree, const Element element);
 
 void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName);
 
+/**
+ * @brief Check if a node is the right child of its father
+ * @return 1 if it's the case, -1 if the node has no father, 0 if the it's the left child
+ */
+RBNodeSide get_node_side(const RBNode *node);
+
+/**
+ * @brief Get the brother node of a node.
+ * @return the brother if it's exist, NULL otherwise
+ */
+RBNode * get_brother_node(const RBNode * node);
 
 void test_left_rotation();
 
