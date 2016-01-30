@@ -167,9 +167,9 @@ void rbtree_insert_case4(RBTree *tree, RBNode *node)
         /* Rotate around the parent in the opposite direction
 		 * to side. */
         if(rbNodeSide == LEFT_SIDE) {
-            node->father = right_rotation(tree,node->father);
+            right_rotation(tree,node->father);
         } else {
-            node->father = left_rotation(tree,node->father);
+            left_rotation(tree,node->father);
         }
     } else {
         next_node = node;
