@@ -6,7 +6,7 @@ Implementation of some Binary Search Trees in C
 ## Trees
 The following BST are implemented
  - AVL
- - Red–black tree (in progress)
+ - Red–black tree
 
 The implementation is chosen at the compile time by specifying a MACRO. Check the `CMakeLists.txt` file.    
 **By default AVL is chosen.** 
