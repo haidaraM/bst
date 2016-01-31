@@ -104,13 +104,30 @@ void test_right_rotation()
     assert(new_right_child->right_child->right_child->data == 4);
     assert(new_right_child->right_child->right_child->father == new_right_child->right_child);
 
-
-
     free(new_right_child->right_child->right_child);
     free(new_right_child->right_child);
     free(root->left_child);
     free(root->right_child);
     free(root);
+}
+
+void test_get_height()
+{
+    RBTree rbTree;
+    initialize_rbtree(&rbTree);
+    assert(get_rbtree_height(&rbTree) == 0);
+
+    insert_element_in_rbtree(&rbTree,50);
+    assert(get_rbtree_height(&rbTree) == 1);
+
+    insert_element_in_rbtree(&rbTree,-1);
+    assert(get_rbtree_height(&rbTree) == 2);
+
+    insert_element_in_rbtree(&rbTree,10);
+    assert(get_rbtree_height(&rbTree) == 2);
+
+    insert_element_in_rbtree(&rbTree,20);
+    assert(get_rbtree_height(&rbTree) == 3);
 
 }
 
@@ -119,5 +136,6 @@ int main(int argc, char const *ar[])
 {
     test_left_rotation();
     test_right_rotation();
+    test_get_height();
     return 0;
 }

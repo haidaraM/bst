@@ -2,6 +2,7 @@
  * @file Rbt.c
  */
 #include "Rbt.h"
+#include "Utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
@@ -445,4 +446,16 @@ RBNode *get_brother_node(const RBNode *node)
     }
 
     return NULL;
+}
+
+int compute_height(const RBNode * rbNode)
+{
+    if (rbNode == NULL)
+        return 0;
+    else return 1 + MAX(compute_height(rbNode->right_child), compute_height(rbNode->left_child));
+}
+
+int get_rbtree_height(const  RBTree * rbTree)
+{
+    return compute_height(rbTree->root);
 }

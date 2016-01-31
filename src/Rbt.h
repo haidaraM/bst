@@ -73,6 +73,14 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element);
  */
 int search_element_in_rbtree(const RBTree *rbTree, const Element element);
 
+/**
+ * @brief get the height of the tree
+ */
+int get_rbtree_height(const  RBTree * rbTree);
+
+/**
+ * @brief Remove an element in the tree
+ */
 void remove_element_from_rbtree(RBTree * rbTree, const Element element);
 
 
