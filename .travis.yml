@@ -4,7 +4,7 @@ before_install:
   - sudo apt-get update -q
 
 install:
-  - sudo apt-get install valgrind
+  - ./install_dependencies.sh
 
 before_script:
   - mkdir bin
