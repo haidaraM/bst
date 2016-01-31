@@ -6,8 +6,6 @@
 #include <stdio.h>
 #include <assert.h>
 
-static RBNode *create_node(const Element element);
-
 static void recursive_free(RBNode *rbNode);
 
 static int recursive_search_element(const RBNode *rbNode, const Element element);
@@ -18,9 +16,9 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
 static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element);
 
-static RBNode *right_rotation(RBTree * rbTree, RBNode *root);
+RBNode *right_rotation(RBTree * rbTree, RBNode *root);
 
-static RBNode *left_rotation(RBTree * rbTree,RBNode *root);
+RBNode *left_rotation(RBTree * rbTree,RBNode *root);
 
 static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 
@@ -239,7 +237,8 @@ void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName)
     fclose(digraph_file);
 }
 
-static RBNode *create_node(const Element element)
+
+RBNode *create_node(const Element element)
 {
     RBNode *rbNode = malloc(sizeof(RBNode));
     rbNode->data = element;
@@ -421,97 +420,6 @@ RBNode *left_rotation(RBTree *rbTree, RBNode *root)
 }
 
 
-void test_right_rotation()
-{
-    RBNode root_father, *root, root_left_child, root_right_child, root_left_child_left, root_left_child_right;
-    root = malloc(sizeof(RBNode));
-
-    root_left_child_right.data = 8;
-    root_left_child_right.right_child = NULL;
-    root_left_child_right.left_child = NULL;
-    root_left_child_right.father = &root_left_child;
-
-    root_left_child_left.data = 6;
-    root_left_child_left.right_child = NULL;
-    root_left_child_left.left_child = NULL;
-    root_left_child_left.father = &root_left_child;
-
-    root_left_child.data = 7;
-    root_left_child.left_child = &root_left_child_left;
-    root_left_child.right_child = NULL;
-    root_left_child.father = root;
-
-    root_right_child.data = 12;
-    root_right_child.left_child = NULL;
-    root_right_child.right_child = NULL;
-    root_right_child.father = root;
-
-
-    root->data = 10;
-    root->left_child = &root_left_child;
-    root->right_child = &root_right_child;
-    root->father = &root_father;
-
-    root_father.right_child = root;
-    root_father.left_child = NULL;
-    root_father.data = 9;
-    root_father.father = NULL;
-
-
-    root = right_rotation(NULL,root);
-
-}
-
-
-/**
-       1                      1
-      / \                    / \
-     /   \                  /   \
-    0     2(pivot)         0     3
-           \      =>            / \
-            \                  /   \
-             3                2     4
-              \
-               \
-                4
- */
-void test_left_rotation()
-{
-    RBNode *root = create_node(1);
-    root->left_child = create_node(0);
-    root->left_child->father = root;
-
-    RBNode *rightNode = create_node(2);
-    root->right_child = rightNode;
-    rightNode->father = root;
-
-    rightNode->right_child = create_node(3);
-    rightNode->right_child->father = rightNode;
-
-
-    rightNode->right_child->right_child = create_node(4);
-    rightNode->right_child->right_child->father = rightNode->right_child;
-
-    rightNode = left_rotation(NULL,rightNode);
-
-
-    assert(rightNode->data == 3);
-    assert(rightNode->father == root);
-    assert(rightNode->left_child->data == 2);
-    assert(rightNode->left_child->father == rightNode);
-    assert(root->right_child == rightNode);
-    assert(root->right_child->right_child->data == 4);
-    assert(root->father == NULL);
-    assert(rightNode->right_child->father == rightNode);
-
-
-    free(rightNode->right_child->right_child);
-    free(rightNode->right_child);
-    free(rightNode);
-    free(root);
-
-
-}
 
 RBNodeSide get_node_side(const RBNode *node)
 {
