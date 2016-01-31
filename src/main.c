@@ -2,8 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "Collection.h"
-#include "Ascii.h"
-#include "Rbt.h"
+#include "Utils.h"
 
 
 
@@ -25,17 +24,16 @@
 
 int main(int argc, char const *ar[])
 {
+    srand((unsigned) time(NULL));
 
     Collection a;
     initialize_collection(&a);
 
-    int i, element;
+    int i;
 
-    srand((unsigned) time(NULL));
     for (i = 0; i < 50; ++i)
     {
-        element = rand() % (valMax + 1);
-        insert_element_in_collection(&a, element);
+        insert_element_in_collection(&a, get_random_between(-50,100));
     }
 
     /*show_collection_in_ascii(&a);*/
