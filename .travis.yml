@@ -10,7 +10,7 @@ before_script:
   - mkdir bin
 
 script:
-  - echo "Test todo"
+  - ./test.sh
 
 notifications:
   email: false
