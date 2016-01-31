@@ -351,7 +351,7 @@ RBNode *right_rotation(RBTree* rbTree,RBNode *root)
     /* update the father to point to the new child*/
     if (root->father != NULL)
     {
-        if (root->father->right_child == root)
+        if (get_node_side(root) == RIGHT_SIDE)
         {
             root->father->right_child = new_root;
         } else
@@ -396,7 +396,7 @@ RBNode *left_rotation(RBTree *rbTree, RBNode *root)
     /* update the father to point to the new child*/
     if (root->father != NULL)
     {
-        if (root->father->right_child == root)
+        if (get_node_side(root) == RIGHT_SIDE)
         {
             root->father->right_child = new_root;
         } else
