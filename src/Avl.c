@@ -9,7 +9,7 @@
 /* intern functions */
 static int compute_height(const AVLNode *noeud);
 
-static AVLNode *recursive_insertion(AVLNode **pNoeud, AVLNode *fatherNode,const Element element);
+static AVLNode *recursive_insertion(Avl* avl,AVLNode **pNoeud, AVLNode *fatherNode,const Element element);
 
 static AVLNode *right_rotation(AVLNode *root);
 
@@ -19,33 +19,34 @@ static AVLNode *create_node(const Element element);
 
 static void rotate_avl(Avl *avl);
 
-static void recursive_free(AVLNode *noeud);
+static void recursive_free(Avl * avl,AVLNode *noeud);
 
 static void recursive_rotation(AVLNode **noeud);
 
-static void recursive_write_digraph(const AVLNode *noeud, FILE *file);
+static void recursive_write_digraph(const Avl * avl,const AVLNode *noeud, FILE *file);
 
-static void write_node_in_file(const AVLNode *noeud, FILE *file);
+static void write_node_in_file(const Avl * avl,const AVLNode *noeud, FILE *file);
 
 /* **************************************************** */
 
 
 
 
-void initialize_avl(Avl *a)
+void initialize_avl(Avl *a,TypePackage *typePackage)
 {
     a->root = NULL;
     a->nb_elements = 0;
+    a->typePackage = typePackage;
 }
 
 void free_avl(Avl *a)
 {
-    recursive_free(a->root);
+    recursive_free(a,a->root);
 }
 
 AVLNode *insert_element_in_avl(Avl *a, const Element element)
 {
-    AVLNode *inserted_node = recursive_insertion(&(a->root),NULL, element);
+    AVLNode *inserted_node = recursive_insertion(a,&(a->root),NULL, element);
     if (inserted_node != NULL)
     {
         a->nb_elements++;
@@ -66,7 +67,7 @@ void create_dot_file_for_avl(const Avl *avl, const char *fileName)
     fichierDigraph = fopen(fileName, "w");
 
     fprintf(fichierDigraph, "strict digraph AVL {\n");
-    recursive_write_digraph(avl->root, fichierDigraph);
+    recursive_write_digraph(avl,avl->root, fichierDigraph);
     fprintf(fichierDigraph, "}\n");
     fclose(fichierDigraph);
 }
@@ -96,7 +97,7 @@ int search_element_in_avl(const Avl *avl, const Element element)
 }
 
 
-static void write_node_in_file(const AVLNode *noeud, FILE *file)
+static void write_node_in_file(const Avl *avl,const AVLNode *noeud, FILE *file)
 {
 
     static int idnumer = 0;
@@ -108,7 +109,7 @@ static void write_node_in_file(const AVLNode *noeud, FILE *file)
 
         if (noeud->left_child != NULL)
         {
-            print_element_int(noeud->left_child->data, file);
+            avl->typePackage->print_element(noeud->left_child->data, file);
         }
         else
         {
@@ -119,7 +120,7 @@ static void write_node_in_file(const AVLNode *noeud, FILE *file)
 
         if (noeud->right_child != NULL)
         {
-            print_element_int(noeud->right_child->data, file);
+            avl->typePackage->print_element(noeud->right_child->data, file);
         }
         else
         {
@@ -144,30 +145,30 @@ static AVLNode *create_node(const Element element)
 }
 
 
-static void recursive_write_digraph(const AVLNode *noeud, FILE *file)
+static void recursive_write_digraph( const Avl * avl,const AVLNode *noeud, FILE *file)
 {
     if (noeud != NULL)
     {
-        write_node_in_file(noeud, file);
-        recursive_write_digraph(noeud->left_child, file);
-        recursive_write_digraph(noeud->right_child, file);
+        write_node_in_file(avl,noeud, file);
+        recursive_write_digraph(avl,noeud->left_child, file);
+        recursive_write_digraph(avl,noeud->right_child, file);
     }
 }
 
 
-static void recursive_free(AVLNode *noeud)
+static void recursive_free(Avl * avl, AVLNode *noeud)
 {
     if (noeud != NULL)
     {
-        recursive_free(noeud->right_child);
-        recursive_free(noeud->left_child);
-        free(noeud->data);
+        recursive_free(avl,noeud->right_child);
+        recursive_free(avl,noeud->left_child);
+        avl->typePackage->free_element(noeud->data);
         free(noeud);
     }
 }
 
 
-AVLNode *recursive_insertion(AVLNode **pNoeud, AVLNode *fatherNode,const Element element)
+AVLNode *recursive_insertion(Avl* avl,AVLNode **pNoeud, AVLNode *fatherNode,const Element element)
 {
     if (*pNoeud == NULL)
     {
@@ -176,14 +177,14 @@ AVLNode *recursive_insertion(AVLNode **pNoeud, AVLNode *fatherNode,const Element
         return *pNoeud;
     } else
     {
-        if (compare_element_int(element, (*pNoeud)->data) > 0)
+        if (avl->typePackage->compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
-            return recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
+            return recursive_insertion(avl,&((*pNoeud)->right_child), *pNoeud, element);
 
-        } else if (compare_element_int(element, (*pNoeud)->data) < 0)
+        } else if (avl->typePackage->compare_element(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
-            return recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
+            return recursive_insertion(avl,&((*pNoeud)->left_child), *pNoeud, element);
         }
     }
 

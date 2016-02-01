@@ -7,6 +7,7 @@
 
 #include "Element.h"
 #include "Utils.h"
+#include "TypePackage.h"
 
 /**
  * @brief Tree node
@@ -31,13 +32,14 @@ typedef struct
 {
     AVLNode *root; /**<  The root node of the tree */
     unsigned long nb_elements; /**< Number of elements in the tree */
+    TypePackage *typePackage; /**< Type package for element in the tree */
 } Avl;
 
 /**
  * @brief Initialize an AVL
  * @param avl to initialize
  */
-void initialize_avl(Avl *avl);
+void initialize_avl(Avl *avl, TypePackage *typePackage);
 
 /**
  * @brief AVL free

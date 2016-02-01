@@ -6,12 +6,12 @@
 #include "Avl.h"
 #include "Rbt.h"
 
-void initialize_collection(Collection *collection)
+void initialize_collection(Collection *collection,TypePackage *typePackage)
 {
 
 #ifdef AVL
     collection->root = (Avl *) malloc(sizeof(Avl));
-    initialize_avl((Avl*)collection->root);
+    initialize_avl((Avl*)collection->root,typePackage);
 #elif RBT
     collection->root = (RBTree *) malloc(sizeof(RBTree));
     initialize_rbtree((RBTree *) collection->root);

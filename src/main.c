@@ -26,7 +26,8 @@ int main(int argc, char const *ar[])
     srand((unsigned) time(NULL));
 
     Collection a;
-    initialize_collection(&a);
+    TypePackage typePackage = get_int_typePackage();
+    initialize_collection(&a,&typePackage);
 
     int i;
 

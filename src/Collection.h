@@ -6,6 +6,7 @@
 #define COLLECTION_H
 
 #include "Element.h"
+#include "TypePackage.h"
 
 /**
  * @struct Collection
@@ -21,7 +22,7 @@ typedef struct
  * @brief Initialize a collection
  * @param collection collection to initialize
  */
-void initialize_collection(Collection *collection);
+void initialize_collection(Collection *collection, TypePackage * typePackage);
 
 /**
  * @brief Testament of the collection
