@@ -45,7 +45,7 @@ typedef struct RBNode
 typedef struct RBTree
 {
     RBNode *root; /**< Root node */
-    unsigned long nb_elements;
+    unsigned long nb_elements; /**< Number of elements in the tree */
 } RBTree;
 
 /**

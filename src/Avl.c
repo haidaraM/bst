@@ -10,7 +10,7 @@
 /* intern functions */
 static int compute_height(const Node *noeud);
 
-static void recursive_insertion(Node **pNoeud, const Element element);
+static Node *recursive_insertion(Node **pNoeud, const Element element);
 
 static Node *right_rotation(Node *root);
 
@@ -36,6 +36,7 @@ static void write_node_in_file(const Node *noeud, FILE *file);
 void initialize_avl(Avl *a)
 {
     a->root = NULL;
+    a->nb_elements = 0;
 }
 
 void free_avl(Avl *a)
@@ -43,10 +44,15 @@ void free_avl(Avl *a)
     recursive_free(a->root);
 }
 
-void insert_element_in_avl(Avl *a, const Element element)
+Node *insert_element_in_avl(Avl *a, const Element element)
 {
-    recursive_insertion(&(a->root), element);
-    rotate_avl(a);
+    Node *inserted_node = recursive_insertion(&(a->root), element);
+    if (inserted_node != NULL)
+    {
+        a->nb_elements++;
+        rotate_avl(a);
+    }
+    return inserted_node;
 }
 
 
@@ -160,23 +166,26 @@ static void recursive_free(Node *noeud)
 }
 
 
-static void recursive_insertion(Node **pNoeud, const Element element)
+Node *recursive_insertion(Node **pNoeud, const Element element)
 {
     if (*pNoeud == NULL)
     {
         *pNoeud = create_node(element);
+        return *pNoeud;
     } else
     {
         if (compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
-            recursive_insertion(&((*pNoeud)->right_child), element);
+            return recursive_insertion(&((*pNoeud)->right_child), element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
-            recursive_insertion(&((*pNoeud)->left_child), element);
+            return recursive_insertion(&((*pNoeud)->left_child), element);
         }
     }
+
+    return NULL;
 }
 
 static void recursive_rotation(Node **noeud)
@@ -223,7 +232,6 @@ static void rotate_avl(Avl *avl)
 }
 
 
-
 static Node *right_rotation(Node *root)
 {
     Node *new_root;
@@ -255,4 +263,9 @@ static int compute_height(const Node *noeud)
 void remove_element_from_avl(Avl *avl, const Element element)
 {
 
+}
+
+unsigned long get_nb_elements_in_avl(const Avl *avl)
+{
+    return avl->nb_elements;
 }
