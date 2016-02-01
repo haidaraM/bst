@@ -6,9 +6,13 @@
 
 #include <stdio.h>
 
-/**< An element in the tree.
- * You can define your own element but you have to redefine the following functions */
+/**< An element in the tree. */
 typedef void * Element;
+
+/**
+ * @brief init int element
+ */
+void init_element_int(Element element);
 
 /**
  * @brief Print the element in the given stream.
@@ -36,6 +40,10 @@ void write_element_int_in_char_array(const Element e, char *output);
  */
 int compare_element_int(const Element e1, const Element e2);
 
+/**
+ * @brief free element
+ */
+void free_element_int(Element element);
 
 /**
  * @brief Create a new int element
