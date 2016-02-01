@@ -6,7 +6,7 @@
 #define AVL_H
 
 #include "Element.h"
-
+#include "Utils.h"
 
 /**
  * @brief Tree node

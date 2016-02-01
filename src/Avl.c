@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Avl.h"
-#include "Utils.h"
 
 
 /* intern functions */

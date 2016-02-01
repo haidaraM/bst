@@ -5,6 +5,7 @@
 #define RBT_H
 
 #include "Element.h"
+#include "Utils.h"
 
 /**
  * @enum Color
@@ -14,16 +15,6 @@ typedef enum
 {
     RED, BLACK
 } Color;
-
-/**
- * @enum NodeSide
- * @brief Enum to know the side of the node relative to it's parent
- */
-typedef enum {
-    LEFT_SIDE,
-    RIGHT_SIDE,
-    NO_SIDE
-} NodeSide;
 
 /**
  * @struct RBNode

@@ -2,10 +2,8 @@
  * @file Rbt.c
  */
 #include "Rbt.h"
-#include "Utils.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 
 static void recursive_free(RBNode *rbNode);
 
