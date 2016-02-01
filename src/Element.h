@@ -8,7 +8,7 @@
 
 /**< An element in the tree.
  * You can define your own element but you have to redefine the following functions */
-typedef int Element;
+typedef void * Element;
 
 /**
  * @brief Print the element in the given stream.
@@ -16,14 +16,14 @@ typedef int Element;
  * @param stream the stream in which you wan to print the element. The stream can be stdout or a regular file in file
  * system.
  */
-void print_element(const Element e, FILE *stream);
+void print_element_int(const Element e, FILE *stream);
 
 
 /**
  * @brief Write in the given array the element. The array must be large enough to contain the element in char*
  * @param e element
  */
-void write_element_in_char_array(const Element e, char *output);
+void write_element_int_in_char_array(const Element e, char *output);
 
 /**
  * @brief Compare two elements.
@@ -34,7 +34,12 @@ void write_element_in_char_array(const Element e, char *output);
  * x<0 si e1 < e2,
  * x >0 si e1 > e2
  */
-int compare_element(const Element e1, const Element e2);
+int compare_element_int(const Element e1, const Element e2);
 
+
+/**
+ * @brief Create a new int element
+ */
+Element create_element_int(int element_int);
 
 #endif

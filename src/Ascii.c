@@ -229,7 +229,7 @@ static Asciinode *build_ascii_tree_recursive_avl(AVLNode *t)
         asciinode->right->parent_dir = 1;
     }
 
-    write_element_in_char_array(t->data, asciinode->label);
+    write_element_int_in_char_array(t->data, asciinode->label);
     asciinode->lablen = strlen(asciinode->label);
 
     return asciinode;
@@ -255,7 +255,7 @@ static Asciinode *build_ascii_tree_recursive_rbtree(RBNode *t)
         asciinode->right->parent_dir = 1;
     }
 
-    write_element_in_char_array(t->data, asciinode->label);
+    write_element_int_in_char_array(t->data, asciinode->label);
     asciinode->lablen = strlen(asciinode->label);
 
     return asciinode;

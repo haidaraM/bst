@@ -78,10 +78,10 @@ int recursive_search_element(const AVLNode *noeud, const Element element)
         return 0;
     } else
     {
-        if (compare_element(element, noeud->data) > 0)
+        if (compare_element_int(element, noeud->data) > 0)
         {
             return recursive_search_element(noeud->right_child, element);
-        } else if (compare_element(element, noeud->data) < 0)
+        } else if (compare_element_int(element, noeud->data) < 0)
         {
             return recursive_search_element(noeud->left_child, element);
         } else
@@ -100,7 +100,7 @@ static void write_node_in_file(const AVLNode *noeud, FILE *file)
 {
 
     static int idnumer = 0;
-    print_element(noeud->data, file);
+    print_element_int(noeud->data, file);
     fprintf(file, "->");
     fprintf(file, "{");
     if (noeud->left_child != NULL || noeud->right_child != NULL)
@@ -108,7 +108,7 @@ static void write_node_in_file(const AVLNode *noeud, FILE *file)
 
         if (noeud->left_child != NULL)
         {
-            print_element(noeud->left_child->data, file);
+            print_element_int(noeud->left_child->data, file);
         }
         else
         {
@@ -119,7 +119,7 @@ static void write_node_in_file(const AVLNode *noeud, FILE *file)
 
         if (noeud->right_child != NULL)
         {
-            print_element(noeud->right_child->data, file);
+            print_element_int(noeud->right_child->data, file);
         }
         else
         {
@@ -161,6 +161,7 @@ static void recursive_free(AVLNode *noeud)
     {
         recursive_free(noeud->right_child);
         recursive_free(noeud->left_child);
+        free(noeud->data);
         free(noeud);
     }
 }
@@ -175,12 +176,12 @@ AVLNode *recursive_insertion(AVLNode **pNoeud, AVLNode *fatherNode,const Element
         return *pNoeud;
     } else
     {
-        if (compare_element(element, (*pNoeud)->data) > 0)
+        if (compare_element_int(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
             return recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
 
-        } else if (compare_element(element, (*pNoeud)->data) < 0)
+        } else if (compare_element_int(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
             return recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
         }

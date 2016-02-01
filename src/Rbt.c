@@ -42,12 +42,12 @@ static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const El
         return *pNoeud;
     } else
     {
-        if (compare_element(element, (*pNoeud)->data) > 0)
+        if (compare_element_int(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
             return recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
 
-        } else if (compare_element(element, (*pNoeud)->data) < 0)
+        } else if (compare_element_int(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
             return recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
         }
@@ -228,7 +228,7 @@ void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName)
     digraph_file = fopen(fileName, "w");
 
     fprintf(digraph_file, "strict digraph AVL {\n node [style=filled fontcolor=white] \n");
-    print_element(rbTree->root->data, digraph_file);
+    print_element_int(rbTree->root->data, digraph_file);
     if(rbTree->root->color == RED){
         fprintf(digraph_file, "[fillcolor=red]");
     } else {
@@ -265,8 +265,8 @@ static void recursive_free(RBNode *rbNode)
 static int recursive_search_element(const RBNode *rbNode, const Element element)
 {
     if (rbNode == NULL) return 0;
-    else if (compare_element(element, rbNode->data) > 0) return recursive_search_element(rbNode->right_child, element);
-    else if (compare_element(element, rbNode->data) < 0) return recursive_search_element(rbNode->left_child, element);
+    else if (compare_element_int(element, rbNode->data) > 0) return recursive_search_element(rbNode->right_child, element);
+    else if (compare_element_int(element, rbNode->data) < 0) return recursive_search_element(rbNode->left_child, element);
     else return 1;
 }
 
@@ -276,7 +276,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
     const char red_color[] = " [fillcolor=red]";
 
     static int idnumer = 0;
-    print_element(rbNode->data, file);
+    print_element_int(rbNode->data, file);
     fprintf(file, "->");
     fprintf(file, "{ ");
 
@@ -285,7 +285,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
 
         if (rbNode->left_child != NULL)
         {
-            print_element(rbNode->left_child->data, file);
+            print_element_int(rbNode->left_child->data, file);
             if (rbNode->left_child->color == BLACK)
             {
                 fprintf(file, black_color);
@@ -300,7 +300,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
         fprintf(file, " ");
         if (rbNode->right_child != NULL)
         {
-            print_element(rbNode->right_child->data, file);
+            print_element_int(rbNode->right_child->data, file);
             if (rbNode->right_child->color == BLACK)
             {
                 fprintf(file, black_color);
