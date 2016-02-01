@@ -6,7 +6,7 @@
 
 #include "Element.h"
 #include "Utils.h"
-
+#include "TypePackage.h"
 /**
  * @enum Color
  * @brief Enum to specify the node color
@@ -37,13 +37,14 @@ typedef struct RBTree
 {
     RBNode *root; /**< Root node */
     unsigned long nb_elements; /**< Number of elements in the tree */
+    TypePackage *typePackage; /**< Type package for element in the tree */
 } RBTree;
 
 /**
  * @brief Initialize the tree
  * @param rbtree the tree to initialize
  */
-void initialize_rbtree(RBTree *rbTree);
+void initialize_rbtree(RBTree *rbTree, TypePackage *typePackage);
 
 /**
  * @brief Free the tree

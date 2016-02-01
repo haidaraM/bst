@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void recursive_free(RBNode *rbNode);
+static void recursive_free_avl(RBTree *rbtree, RBNode *rbNode);
 
 static int recursive_search_element(const RBNode *rbNode, const Element element);
 
@@ -13,7 +13,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file);
 
 static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
-static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element);
+static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNode *fatherNode, const Element element);
 
 RBNode *right_rotation(RBTree * rbTree, RBNode *root);
 
@@ -21,19 +21,20 @@ RBNode *left_rotation(RBTree * rbTree,RBNode *root);
 
 static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 
-void initialize_rbtree(RBTree *rbTree)
+void initialize_rbtree(RBTree *rbTree, TypePackage *typePackage)
 {
     rbTree->root = NULL;
     rbTree->nb_elements = 0;
+    rbTree->typePackage = typePackage;
 }
 
 void free_rbtree(RBTree *rbTree)
 {
-    recursive_free(rbTree->root);
+    recursive_free_avl(rbTree, rbTree->root);
 }
 
 
-static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const Element element)
+static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNode *fatherNode, const Element element)
 {
     if (*pNoeud == NULL)
     {
@@ -42,14 +43,14 @@ static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const El
         return *pNoeud;
     } else
     {
-        if (compare_element_int(element, (*pNoeud)->data) > 0)
+        if (rbtree->typePackage->compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
-            return recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
+            return recursive_insertion_rbtree(rbtree, &((*pNoeud)->right_child), *pNoeud, element);
 
-        } else if (compare_element_int(element, (*pNoeud)->data) < 0)
+        } else if (rbtree->typePackage->compare_element(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
-            return recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
+            return recursive_insertion_rbtree(rbtree, &((*pNoeud)->left_child), *pNoeud, element);
         }
     }
 
@@ -59,7 +60,7 @@ static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const El
 RBNode* insert_element_in_rbtree(RBTree *rbTree, const Element element)
 {
 
-    RBNode *inserted_node = recursive_insertion(&(rbTree->root), NULL, element);
+    RBNode *inserted_node = recursive_insertion_rbtree(rbTree, &(rbTree->root), NULL, element);
     if (inserted_node != NULL)
     {
         rbTree->nb_elements++;
@@ -252,12 +253,13 @@ RBNode *create_node(const Element element)
     return rbNode;
 }
 
-static void recursive_free(RBNode *rbNode)
+static void recursive_free_avl(RBTree *rbtree, RBNode *rbNode)
 {
     if (rbNode != NULL)
     {
-        recursive_free(rbNode->left_child);
-        recursive_free(rbNode->right_child);
+        recursive_free_avl(rbtree, rbNode->left_child);
+        recursive_free_avl(rbtree, rbNode->right_child);
+        rbtree->typePackage->free_element(rbNode->data);
         free(rbNode);
     }
 }

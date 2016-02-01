@@ -14,7 +14,7 @@ void initialize_collection(Collection *collection,TypePackage *typePackage)
     initialize_avl((Avl*)collection->root,typePackage);
 #elif RBT
     collection->root = (RBTree *) malloc(sizeof(RBTree));
-    initialize_rbtree((RBTree *) collection->root);
+    initialize_rbtree((RBTree *) collection->root,typePackage);
 #endif
 }
 

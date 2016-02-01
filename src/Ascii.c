@@ -263,7 +263,7 @@ static Asciinode *build_ascii_tree(Collection *t)
 #elif RBT
     RBTree *rbTree = (RBTree *) t->root;
     TypePackage * typePackage = rbTree->typePackage;
-    node = build_ascii_tree_collection(rbTree->root);
+    node = build_ascii_tree_collection(typePackage,rbTree->root);
 #endif
     node->parent_dir = 0;
 
