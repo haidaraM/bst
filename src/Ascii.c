@@ -209,15 +209,26 @@ static void compute_edge_lengths(Asciinode *node)
     node->height = h;
 }
 
-static Asciinode *build_ascii_tree_recursive_avl(AVLNode *t)
+
+static Asciinode *build_ascii_tree_collection(TypePackage * typePackage, void *t)
 {
     Asciinode *asciinode;
 
     if (t == NULL) return NULL;
 
     asciinode = malloc(sizeof(Asciinode));
-    asciinode->left = build_ascii_tree_recursive_avl(t->left_child);
-    asciinode->right = build_ascii_tree_recursive_avl(t->right_child);
+#ifdef AVL
+    AVLNode * node = (AVLNode*) t;
+
+    asciinode->left = build_ascii_tree_collection(typePackage,node->left_child);
+    asciinode->right = build_ascii_tree_collection(typePackage,node->right_child);
+    typePackage->write_element_in_char_array(node->data, asciinode->label);
+#elif RBT
+    RBNode * node = (RBNode *)t;
+    asciinode->left = build_ascii_tree_collection(typePackage,node->left_child);
+    asciinode->right = build_ascii_tree_collection(typePackage,node->right_child);
+    typePackage->write_element_in_char_array(node->data, asciinode->label);
+#endif
 
     if (asciinode->left != NULL)
     {
@@ -229,37 +240,12 @@ static Asciinode *build_ascii_tree_recursive_avl(AVLNode *t)
         asciinode->right->parent_dir = 1;
     }
 
-    write_element_int_in_char_array(t->data, asciinode->label);
+
     asciinode->lablen = strlen(asciinode->label);
 
     return asciinode;
 }
 
-static Asciinode *build_ascii_tree_recursive_rbtree(RBNode *t)
-{
-    Asciinode *asciinode;
-
-    if (t == NULL) return NULL;
-
-    asciinode = malloc(sizeof(Asciinode));
-    asciinode->left = build_ascii_tree_recursive_rbtree(t->left_child);
-    asciinode->right = build_ascii_tree_recursive_rbtree(t->right_child);
-
-    if (asciinode->left != NULL)
-    {
-        asciinode->left->parent_dir = -1;
-    }
-
-    if (asciinode->right != NULL)
-    {
-        asciinode->right->parent_dir = 1;
-    }
-
-    write_element_int_in_char_array(t->data, asciinode->label);
-    asciinode->lablen = strlen(asciinode->label);
-
-    return asciinode;
-}
 
 
 /**
@@ -271,11 +257,13 @@ static Asciinode *build_ascii_tree(Collection *t)
     if (t == NULL) return NULL;
 #ifdef AVL
     Avl *avl = (Avl *) t->root;
-    node = build_ascii_tree_recursive_avl(avl->root);
+    TypePackage * typePackage = avl->typePackage;
+    node = build_ascii_tree_collection(typePackage,avl->root);
 
 #elif RBT
     RBTree *rbTree = (RBTree *) t->root;
-    node = build_ascii_tree_recursive_rbtree(rbTree->root);
+    TypePackage * typePackage = rbTree->typePackage;
+    node = build_ascii_tree_collection(rbTree->root);
 #endif
     node->parent_dir = 0;
 
