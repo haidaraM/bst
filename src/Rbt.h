@@ -45,6 +45,7 @@ typedef struct RBNode
 typedef struct RBTree
 {
     RBNode *root; /**< Root node */
+    unsigned long nb_elements;
 } RBTree;
 
 /**
@@ -65,6 +66,11 @@ void free_rbtree(RBTree *rbTree);
  * @param element element to insert
  */
 void insert_element_in_rbtree(RBTree *rbTree, const Element element);
+
+/**
+ * @brief Get the number of elements in the tree
+ */
+unsigned long get_nb_elements_in_rbtree(const RBTree * rbTree);
 
 /**
  * @brief an element in the tree

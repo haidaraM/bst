@@ -26,6 +26,7 @@ static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 void initialize_rbtree(RBTree *rbTree)
 {
     rbTree->root = NULL;
+    rbTree->nb_elements = 0;
 }
 
 void free_rbtree(RBTree *rbTree)
@@ -63,6 +64,7 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element)
     RBNode *inserted_node = recursive_insertion(&(rbTree->root), NULL, element);
     if (inserted_node != NULL)
     {
+        rbTree->nb_elements++;
         rotate_rbtree(rbTree, inserted_node);
     }
 
@@ -458,4 +460,9 @@ int compute_height(const RBNode * rbNode)
 int get_rbtree_height(const  RBTree * rbTree)
 {
     return compute_height(rbTree->root);
+}
+
+unsigned long get_nb_elements_in_rbtree(const RBTree *rbTree)
+{
+    return rbTree->nb_elements;
 }

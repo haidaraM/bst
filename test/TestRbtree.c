@@ -131,11 +131,26 @@ void test_get_height()
 
 }
 
+void test_get_nb_elements()
+{
+    RBTree rbTree;
+    initialize_rbtree(&rbTree);
+    assert(get_nb_elements_in_rbtree(&rbTree) == 0);
+
+    insert_element_in_rbtree(&rbTree,14);
+    assert(get_nb_elements_in_rbtree(&rbTree) == 1);
+
+    insert_element_in_rbtree(&rbTree,14);
+    assert(get_nb_elements_in_rbtree(&rbTree) == 1);
+
+
+}
 
 int main(int argc, char const *ar[])
 {
     test_left_rotation();
     test_right_rotation();
     test_get_height();
+    test_get_nb_elements();
     return 0;
 }
