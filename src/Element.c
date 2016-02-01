@@ -37,10 +37,6 @@ Element create_element_int(int element_int)
     return new_element;
 }
 
-void init_element_int(Element element)
-{
-    element = (void *) malloc(sizeof(int));
-}
 
 void free_element_int(Element element)
 {

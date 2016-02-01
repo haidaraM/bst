@@ -9,8 +9,6 @@
 typedef struct TypePackage
 {
 
-    void (*init_element)(Element element);
-
     int (*compare_element)(const Element element, const Element element2);
 
     void (*print_element)(const Element element, FILE *stream);

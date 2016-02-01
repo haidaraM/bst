@@ -10,11 +10,6 @@
 typedef void * Element;
 
 /**
- * @brief init int element
- */
-void init_element_int(Element element);
-
-/**
  * @brief Print the element in the given stream.
  * @param e element to show
  * @param stream the stream in which you wan to print the element. The stream can be stdout or a regular file in file
