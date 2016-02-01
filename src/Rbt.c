@@ -158,7 +158,7 @@ void rbtree_insert_case3(RBTree *tree, RBNode *node)
 void rbtree_insert_case4(RBTree *tree, RBNode *node)
 {
     RBNode *next_node;
-    RBNodeSide rbNodeSide;
+    NodeSide rbNodeSide;
 
     rbNodeSide = get_node_side(node);
 
@@ -198,7 +198,7 @@ void rbtree_insert_case4(RBTree *tree, RBNode *node)
 void rbtree_insert_case5(RBTree *tree, RBNode *node)
 {
     RBNode * father, *grand_father;
-    RBNodeSide rbNodeSide;
+    NodeSide rbNodeSide;
 
     father = node->father;
     grand_father = father->father;
@@ -425,7 +425,7 @@ RBNode *left_rotation(RBTree *rbTree, RBNode *root)
 
 
 
-RBNodeSide get_node_side(const RBNode *node)
+NodeSide get_node_side(const RBNode *node)
 {
     if (node->father != NULL)
     {
@@ -437,7 +437,7 @@ RBNodeSide get_node_side(const RBNode *node)
 
 RBNode *get_brother_node(const RBNode *node)
 {
-    RBNodeSide is_right = get_node_side(node);
+    NodeSide is_right = get_node_side(node);
     switch (is_right)
     {
         case RIGHT_SIDE: /* node is the right child so we return the left child*/

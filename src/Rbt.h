@@ -16,14 +16,14 @@ typedef enum
 } Color;
 
 /**
- * @enum RBNodeSide
+ * @enum NodeSide
  * @brief Enum to know the side of the node relative to it's parent
  */
 typedef enum {
     LEFT_SIDE,
     RIGHT_SIDE,
     NO_SIDE
-} RBNodeSide;
+} NodeSide;
 
 /**
  * @struct RBNode
@@ -102,7 +102,7 @@ void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName);
  * @brief Check if a node is the right child of its father
  * @return 1 if it's the case, -1 if the node has no father, 0 if the it's the left child
  */
-RBNodeSide get_node_side(const RBNode *node);
+NodeSide get_node_side(const RBNode *node);
 
 /**
  * @brief Get the brother node of a node.
