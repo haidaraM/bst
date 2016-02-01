@@ -64,8 +64,9 @@ void free_rbtree(RBTree *rbTree);
  * @brief Insert an element in the tree
  * @param rbTree rbTree in which you wan to insert
  * @param element element to insert
+ * @return return the inserted node or NULL if there was no node inserted
  */
-void insert_element_in_rbtree(RBTree *rbTree, const Element element);
+RBNode * insert_element_in_rbtree(RBTree *rbTree, const Element element);
 
 /**
  * @brief Get the number of elements in the tree

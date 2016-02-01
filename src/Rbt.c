@@ -58,7 +58,7 @@ static RBNode *recursive_insertion(RBNode **pNoeud, RBNode *fatherNode, const El
     return NULL;
 }
 
-void insert_element_in_rbtree(RBTree *rbTree, const Element element)
+RBNode* insert_element_in_rbtree(RBTree *rbTree, const Element element)
 {
 
     RBNode *inserted_node = recursive_insertion(&(rbTree->root), NULL, element);
@@ -68,6 +68,7 @@ void insert_element_in_rbtree(RBTree *rbTree, const Element element)
         rotate_rbtree(rbTree, inserted_node);
     }
 
+    return inserted_node;
 }
 
 static void rbtree_insert_case1(RBTree *tree, RBNode *node);
