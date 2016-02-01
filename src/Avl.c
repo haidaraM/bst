@@ -10,7 +10,7 @@
 /* intern functions */
 static int compute_height(const AVLNode *noeud);
 
-static AVLNode *recursive_insertion(AVLNode **pNoeud, const Element element);
+static AVLNode *recursive_insertion(AVLNode **pNoeud, AVLNode *fatherNode,const Element element);
 
 static AVLNode *right_rotation(AVLNode *root);
 
@@ -46,7 +46,7 @@ void free_avl(Avl *a)
 
 AVLNode *insert_element_in_avl(Avl *a, const Element element)
 {
-    AVLNode *inserted_node = recursive_insertion(&(a->root), element);
+    AVLNode *inserted_node = recursive_insertion(&(a->root),NULL, element);
     if (inserted_node != NULL)
     {
         a->nb_elements++;
@@ -140,6 +140,7 @@ static AVLNode *create_node(const Element element)
     n->data = element;
     n->right_child = NULL;
     n->left_child = NULL;
+    n->father = NULL;
     return n;
 }
 
@@ -166,22 +167,23 @@ static void recursive_free(AVLNode *noeud)
 }
 
 
-AVLNode *recursive_insertion(AVLNode **pNoeud, const Element element)
+AVLNode *recursive_insertion(AVLNode **pNoeud, AVLNode *fatherNode,const Element element)
 {
     if (*pNoeud == NULL)
     {
         *pNoeud = create_node(element);
+        (*pNoeud)->father = fatherNode;
         return *pNoeud;
     } else
     {
         if (compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
-            return recursive_insertion(&((*pNoeud)->right_child), element);
+            return recursive_insertion(&((*pNoeud)->right_child), *pNoeud, element);
 
         } else if (compare_element(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
-            return recursive_insertion(&((*pNoeud)->left_child), element);
+            return recursive_insertion(&((*pNoeud)->left_child), *pNoeud, element);
         }
     }
 

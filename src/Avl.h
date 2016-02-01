@@ -18,6 +18,7 @@ typedef struct AVLNode
 
     struct AVLNode *left_child;    /**< Right child of the node */
     struct AVLNode *right_child;    /**< Left child of the node */
+    struct AVLNode *father;    /**< The father of the node */
     Element data; /**< Data contained in the node */
 } AVLNode;
 
