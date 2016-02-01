@@ -8,25 +8,25 @@
 
 
 /* intern functions */
-static int compute_height(const Node *noeud);
+static int compute_height(const AVLNode *noeud);
 
-static Node *recursive_insertion(Node **pNoeud, const Element element);
+static AVLNode *recursive_insertion(AVLNode **pNoeud, const Element element);
 
-static Node *right_rotation(Node *root);
+static AVLNode *right_rotation(AVLNode *root);
 
-static Node *left_rotation(Node *root);
+static AVLNode *left_rotation(AVLNode *root);
 
-static Node *create_node(const Element element);
+static AVLNode *create_node(const Element element);
 
 static void rotate_avl(Avl *avl);
 
-static void recursive_free(Node *noeud);
+static void recursive_free(AVLNode *noeud);
 
-static void recursive_rotation(Node **noeud);
+static void recursive_rotation(AVLNode **noeud);
 
-static void recursive_write_digraph(const Node *noeud, FILE *file);
+static void recursive_write_digraph(const AVLNode *noeud, FILE *file);
 
-static void write_node_in_file(const Node *noeud, FILE *file);
+static void write_node_in_file(const AVLNode *noeud, FILE *file);
 
 /* **************************************************** */
 
@@ -44,9 +44,9 @@ void free_avl(Avl *a)
     recursive_free(a->root);
 }
 
-Node *insert_element_in_avl(Avl *a, const Element element)
+AVLNode *insert_element_in_avl(Avl *a, const Element element)
 {
-    Node *inserted_node = recursive_insertion(&(a->root), element);
+    AVLNode *inserted_node = recursive_insertion(&(a->root), element);
     if (inserted_node != NULL)
     {
         a->nb_elements++;
@@ -72,7 +72,7 @@ void create_dot_file_for_avl(const Avl *avl, const char *fileName)
     fclose(fichierDigraph);
 }
 
-int recursive_search_element(const Node *noeud, const Element element)
+int recursive_search_element(const AVLNode *noeud, const Element element)
 {
     if (noeud == NULL)
     {
@@ -97,7 +97,7 @@ int search_element_in_avl(const Avl *avl, const Element element)
 }
 
 
-static void write_node_in_file(const Node *noeud, FILE *file)
+static void write_node_in_file(const AVLNode *noeud, FILE *file)
 {
 
     static int idnumer = 0;
@@ -134,9 +134,9 @@ static void write_node_in_file(const Node *noeud, FILE *file)
 /**
  * @brief create a node with element as data
  */
-static Node *create_node(const Element element)
+static AVLNode *create_node(const Element element)
 {
-    Node *n = malloc(sizeof(Node));
+    AVLNode *n = malloc(sizeof(AVLNode));
     n->data = element;
     n->right_child = NULL;
     n->left_child = NULL;
@@ -144,7 +144,7 @@ static Node *create_node(const Element element)
 }
 
 
-static void recursive_write_digraph(const Node *noeud, FILE *file)
+static void recursive_write_digraph(const AVLNode *noeud, FILE *file)
 {
     if (noeud != NULL)
     {
@@ -155,7 +155,7 @@ static void recursive_write_digraph(const Node *noeud, FILE *file)
 }
 
 
-static void recursive_free(Node *noeud)
+static void recursive_free(AVLNode *noeud)
 {
     if (noeud != NULL)
     {
@@ -166,7 +166,7 @@ static void recursive_free(Node *noeud)
 }
 
 
-Node *recursive_insertion(Node **pNoeud, const Element element)
+AVLNode *recursive_insertion(AVLNode **pNoeud, const Element element)
 {
     if (*pNoeud == NULL)
     {
@@ -188,7 +188,7 @@ Node *recursive_insertion(Node **pNoeud, const Element element)
     return NULL;
 }
 
-static void recursive_rotation(Node **noeud)
+static void recursive_rotation(AVLNode **noeud)
 {
 
     if (*noeud != NULL)
@@ -232,9 +232,9 @@ static void rotate_avl(Avl *avl)
 }
 
 
-static Node *right_rotation(Node *root)
+static AVLNode *right_rotation(AVLNode *root)
 {
-    Node *new_root;
+    AVLNode *new_root;
     new_root = root->left_child;
     root->left_child = new_root->right_child;
     new_root->right_child = root;
@@ -243,9 +243,9 @@ static Node *right_rotation(Node *root)
 }
 
 
-static Node *left_rotation(Node *root)
+static AVLNode *left_rotation(AVLNode *root)
 {
-    Node *new_root;
+    AVLNode *new_root;
     new_root = root->right_child;
     root->right_child = new_root->left_child;
     new_root->left_child = root;
@@ -253,7 +253,7 @@ static Node *left_rotation(Node *root)
 }
 
 
-static int compute_height(const Node *noeud)
+static int compute_height(const AVLNode *noeud)
 {
     if (noeud == NULL)
         return 0;

@@ -209,7 +209,7 @@ static void compute_edge_lengths(Asciinode *node)
     node->height = h;
 }
 
-static Asciinode *build_ascii_tree_recursive_avl(Node *t)
+static Asciinode *build_ascii_tree_recursive_avl(AVLNode *t)
 {
     Asciinode *asciinode;
 

@@ -10,16 +10,16 @@
 
 /**
  * @brief Tree node
- * @struct Node
+ * @struct AVLNode
  *
  */
-typedef struct Node
+typedef struct AVLNode
 {
 
-    struct Node *left_child;    /**< Right child of the node */
-    struct Node *right_child;    /**< Left child of the node */
+    struct AVLNode *left_child;    /**< Right child of the node */
+    struct AVLNode *right_child;    /**< Left child of the node */
     Element data; /**< Data contained in the node */
-} Node;
+} AVLNode;
 
 /**
  * @struct Avl
@@ -28,7 +28,7 @@ typedef struct Node
  */
 typedef struct
 {
-    Node *root; /**<  The root node of the tree */
+    AVLNode *root; /**<  The root node of the tree */
     unsigned long nb_elements; /**< Number of elements in the tree */
 } Avl;
 
@@ -74,7 +74,7 @@ int get_avl_height(const Avl *avl);
  * @param avl avl in which you wan to insert
  * @param element element to insert
  */
-Node* insert_element_in_avl(Avl *avl, const Element element);
+AVLNode * insert_element_in_avl(Avl *avl, const Element element);
 
 /**
  * @brief Create a file in dot format for the given AVL
