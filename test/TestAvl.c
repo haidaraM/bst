@@ -10,6 +10,7 @@ void test_initialize()
     initialize_avl(&avl,&typePackage);
     assert(avl.root == NULL);
     assert(avl.nb_elements == 0);
+    assert(avl.typePackage == &typePackage);
 }
 
 void test_get_height()

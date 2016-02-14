@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "Collection.h"
 #include "Utils.h"
+#include "Ascii.h"
 
 
 
