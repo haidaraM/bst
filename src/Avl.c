@@ -15,7 +15,7 @@ static AVLNode *right_rotation(AVLNode *root);
 
 static AVLNode *left_rotation(AVLNode *root);
 
-static AVLNode *create_node(const Element element);
+static AVLNode *create_node_avl(const Element element);
 
 static void rotate_avl(Avl *avl);
 
@@ -134,7 +134,7 @@ static void write_node_in_file(const Avl *avl,const AVLNode *noeud, FILE *file)
 /**
  * @brief create a node with element as data
  */
-static AVLNode *create_node(const Element element)
+static AVLNode *create_node_avl(const Element element)
 {
     AVLNode *n = malloc(sizeof(AVLNode));
     n->data = element;
@@ -172,7 +172,7 @@ AVLNode *recursive_insertion(Avl* avl,AVLNode **pNoeud, AVLNode *fatherNode,cons
 {
     if (*pNoeud == NULL)
     {
-        *pNoeud = create_node(element);
+        *pNoeud = create_node_avl(element);
         (*pNoeud)->father = fatherNode;
         return *pNoeud;
     } else
