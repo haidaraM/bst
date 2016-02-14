@@ -21,6 +21,8 @@ RBNode *left_rotation(RBTree * rbTree,RBNode *root);
 
 static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 
+RBNode *create_node_rbtree(const Element element);
+
 void initialize_rbtree(RBTree *rbTree, TypePackage *typePackage)
 {
     rbTree->root = NULL;
@@ -38,7 +40,7 @@ static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNod
 {
     if (*pNoeud == NULL)
     {
-        *pNoeud = create_node(element);
+        *pNoeud = create_node_rbtree(element);
         (*pNoeud)->father = fatherNode;
         return *pNoeud;
     } else
@@ -241,7 +243,7 @@ void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName)
 }
 
 
-RBNode *create_node(const Element element)
+RBNode *create_node_rbtree(const Element element)
 {
     RBNode *rbNode = malloc(sizeof(RBNode));
     rbNode->data = element;

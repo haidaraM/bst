@@ -103,11 +103,6 @@ NodeSide get_node_side(const RBNode *node);
 RBNode * get_brother_node(const RBNode * node);
 
 
-/**
- * @brief Create a node with element as data
- * @param element
- */
-RBNode *create_node(const Element element);
 
 
 #endif

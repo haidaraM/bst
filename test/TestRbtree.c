@@ -5,7 +5,7 @@
 
 RBNode *left_rotation(RBTree * rbTree,RBNode *root);
 RBNode *right_rotation(RBTree * rbTree,RBNode *root);
-
+RBNode *create_node_rbtree(const Element element);
 /**
        1                      1
       / \                    / \
@@ -21,25 +21,25 @@ RBNode *right_rotation(RBTree * rbTree,RBNode *root);
 void test_left_rotation()
 {
     Element element1 = create_element_int(1);
-    RBNode *root = create_node(element1);
+    RBNode *root = create_node_rbtree(element1);
 
     Element element0 = create_element_int(0);
 
-    root->left_child = create_node(element0);
+    root->left_child = create_node_rbtree(element0);
     root->left_child->father = root;
 
     Element element2 = create_element_int(2);
-    RBNode *rightNode = create_node(element2);
+    RBNode *rightNode = create_node_rbtree(element2);
     root->right_child = rightNode;
     rightNode->father = root;
 
     Element element3 = create_element_int(3);
-    rightNode->right_child = create_node(element3);
+    rightNode->right_child = create_node_rbtree(element3);
     rightNode->right_child->father = rightNode;
 
 
     Element element4 = create_element_int(4);
-    rightNode->right_child->right_child = create_node(element4);
+    rightNode->right_child->right_child = create_node_rbtree(element4);
     rightNode->right_child->right_child->father = rightNode->right_child;
 
     RBNode *new_right_child = left_rotation(NULL, rightNode);
@@ -81,30 +81,28 @@ void test_left_rotation()
                                         \
                                          4
  */
-
-
 void test_right_rotation()
 {
     Element element1 = create_element_int(1);
-    RBNode *root = create_node(element1);
+    RBNode *root = create_node_rbtree(element1);
 
     Element element0 = create_element_int(0);
 
-    root->left_child = create_node(element0);
+    root->left_child = create_node_rbtree(element0);
     root->left_child->father = root;
 
     Element  element3 = create_element_int(3);
 
-    RBNode *rightNode = create_node(element3);
+    RBNode *rightNode = create_node_rbtree(element3);
     root->right_child = rightNode;
     rightNode->father = root;
 
     Element element4 = create_element_int(4);
-    rightNode->right_child = create_node(element4);
+    rightNode->right_child = create_node_rbtree(element4);
     rightNode->right_child->father = rightNode;
 
     Element element2 = create_element_int(2);
-    rightNode->left_child = create_node(element2);
+    rightNode->left_child = create_node_rbtree(element2);
     rightNode->left_child->father = rightNode;
 
     RBNode *new_right_child = right_rotation(NULL, rightNode);
