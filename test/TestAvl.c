@@ -41,9 +41,11 @@ void test_get_nb_elements()
     insert_element_in_avl(&avl,create_element_int(1));
     assert(get_nb_elements_in_avl(&avl) == 1);
 
-    insert_element_in_avl(&avl,create_element_int(1));
+    Element element = create_element_int(1);
+    insert_element_in_avl(&avl,element);
     assert(get_nb_elements_in_avl(&avl) == 1);
 
+    free_element_int(element);
     free_avl(&avl);
 }
 
