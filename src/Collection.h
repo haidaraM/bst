@@ -39,6 +39,11 @@ void free_collection(Collection *collection);
 void * insert_element_in_collection(Collection *collection, const Element element);
 
 
+/**
+ * @brief Remove element in the collection
+ * @param collection
+ * @param element element to remove
+ */
 void remove_element_from_collection(Collection * collection, const Element element);
 
 
@@ -50,6 +55,13 @@ void remove_element_from_collection(Collection * collection, const Element eleme
  *         0 otherwise
  */
 int search_element_in_collection(const Collection *collection, const Element element);
+
+/**
+ * @brief Get the collection size
+ * @param collection
+ * @return the number of elements in the collection
+ */
+unsigned long get_nb_elements_in_collection(const Collection * collection);
 
 /**
  * @brief Create a file in dot format for the given collection

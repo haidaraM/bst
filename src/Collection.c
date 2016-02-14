@@ -66,3 +66,14 @@ void remove_element_from_collection(Collection *collection, const Element elemen
 #elif RBT
 #endif
 }
+
+unsigned long get_nb_elements_in_collection(const Collection *collection)
+{
+
+#ifdef AVL
+    return get_nb_elements_in_avl((Avl*) collection->root);
+#elif RBT
+    return get_nb_elements_in_rbtree((RBTree*) collection->root);
+#endif
+
+}
