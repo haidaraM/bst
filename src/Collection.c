@@ -30,12 +30,12 @@ void free_collection(Collection *collection)
 #endif
 }
 
-void insert_element_in_collection(Collection *pos, const Element val)
+void *insert_element_in_collection(Collection *pos, const Element val)
 {
 #ifdef AVL
-    insert_element_in_avl((Avl*)pos->root, val);
+    return insert_element_in_avl((Avl*)pos->root, val);
 #elif RBT
-    insert_element_in_rbtree((RBTree *) pos->root, val);
+    return insert_element_in_rbtree((RBTree *) pos->root, val);
 #endif
 }
 

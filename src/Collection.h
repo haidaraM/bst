@@ -34,8 +34,9 @@ void free_collection(Collection *collection);
  * @brief Insert an element in the collection
  * @param collection collection in which you want to insert
  * @param element element to insert
+ * @return A pointer on the inserted node
  */
-void insert_element_in_collection(Collection *collection, const Element element);
+void * insert_element_in_collection(Collection *collection, const Element element);
 
 
 void remove_element_from_collection(Collection * collection, const Element element);
