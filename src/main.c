@@ -34,7 +34,7 @@ int main(int argc, char const *ar[])
 
     for (i = 0; i < 50; ++i)
     {
-        insert_element_in_collection(&a, create_element_int(get_random_between(-50,1000)));
+        insert_element_in_collection(&a, create_element_int(get_random_between(-500,1000)));
     }
 
     /*show_collection_in_ascii(&a);*/

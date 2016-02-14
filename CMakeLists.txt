@@ -7,8 +7,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 include_directories(src)
 
 # Select your bst type
-add_definitions(-DAVL)
-#add_definitions(-DRBT)
+#add_definitions(-DAVL)
+add_definitions(-DRBT)
 
 enable_testing()
 
