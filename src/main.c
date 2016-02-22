@@ -39,10 +39,10 @@ int main(int argc, char const *ar[])
 
     /*show_collection_in_ascii(&a);*/
 
-    const char fichier[] = "arbre.gv";
+    const char fichier[] = "tree.gv";
     char commande[256];
     create_dot_file_for_collection(&a, fichier);
-    sprintf(commande, "dot -Tsvg %s > %s.svg && eog %s.svg 2>/dev/null", fichier, fichier, fichier);
+    sprintf(commande, "dot -Tsvg %s > %s.svg && open %s.svg", fichier, fichier, fichier);
     system(commande);
 
 
