@@ -15,12 +15,12 @@ int MIN(int x, int y);
 int get_random_between(int inf, int sup);
 
 
-
 /**
  * @enum NodeSide
  * @brief Enum to know the side of the node relative to it's parent
  */
-typedef enum {
+typedef enum
+{
     LEFT_SIDE,
     RIGHT_SIDE,
     NO_SIDE

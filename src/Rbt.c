@@ -3,7 +3,6 @@
  */
 #include "Rbt.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 static void recursive_free_avl(RBTree *rbtree, RBNode *rbNode);
 
@@ -15,9 +14,9 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
 static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNode *fatherNode, const Element element);
 
-RBNode *right_rotation(RBTree * rbTree, RBNode *root);
+RBNode *right_rotation(RBTree *rbTree, RBNode *root);
 
-RBNode *left_rotation(RBTree * rbTree,RBNode *root);
+RBNode *left_rotation(RBTree *rbTree, RBNode *root);
 
 static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 
@@ -38,19 +37,21 @@ void free_rbtree(RBTree *rbTree)
 
 static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNode *fatherNode, const Element element)
 {
-    if (*pNoeud == NULL)
+    if(*pNoeud == NULL)
     {
         *pNoeud = create_node_rbtree(element);
         (*pNoeud)->father = fatherNode;
         return *pNoeud;
-    } else
+    }
+    else
     {
-        if (rbtree->typePackage->compare_element(element, (*pNoeud)->data) > 0)
+        if(rbtree->typePackage->compare_element(element, (*pNoeud)->data) > 0)
         { /* element > data => we go right*/
 
             return recursive_insertion_rbtree(rbtree, &((*pNoeud)->right_child), *pNoeud, element);
 
-        } else if (rbtree->typePackage->compare_element(element, (*pNoeud)->data) < 0)
+        }
+        else if(rbtree->typePackage->compare_element(element, (*pNoeud)->data) < 0)
         { /* element < data => we go left*/
             return recursive_insertion_rbtree(rbtree, &((*pNoeud)->left_child), *pNoeud, element);
         }
@@ -59,11 +60,11 @@ static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNod
     return NULL;
 }
 
-RBNode* insert_element_in_rbtree(RBTree *rbTree, const Element element)
+RBNode *insert_element_in_rbtree(RBTree *rbTree, const Element element)
 {
 
     RBNode *inserted_node = recursive_insertion_rbtree(rbTree, &(rbTree->root), NULL, element);
-    if (inserted_node != NULL)
+    if(inserted_node != NULL)
     {
         rbTree->nb_elements++;
         rotate_rbtree(rbTree, inserted_node);
@@ -92,16 +93,18 @@ void rotate_rbtree(RBTree *rbTree, RBNode *node)
  * be recolored black, as the root is always black. */
 void rbtree_insert_case1(RBTree *tree, RBNode *node)
 {
-    if(node->father == NULL){
+    if(node->father == NULL)
+    {
 
         /* the root is always black */
         node->color = BLACK;
-    } else {
+    }
+    else
+    {
         /* not root */
-        rbtree_insert_case2(tree,node);
+        rbtree_insert_case2(tree, node);
     }
 }
-
 
 
 /* Insert case 2: If the parent of the new node is red, this
@@ -111,8 +114,9 @@ void rbtree_insert_case2(RBTree *tree, RBNode *node)
 {
     /* Note that if this function is being called, we already know
 	 * the node has a parent, as it is not the root node. */
-    if(node->father->color == RED){
-        rbtree_insert_case3(tree,node);
+    if(node->father->color == RED)
+    {
+        rbtree_insert_case3(tree, node);
     }
 }
 
@@ -121,7 +125,7 @@ void rbtree_insert_case2(RBTree *tree, RBNode *node)
 
 void rbtree_insert_case3(RBTree *tree, RBNode *node)
 {
-    RBNode * grand_father, *uncle;
+    RBNode *grand_father, *uncle;
 
     /* Note that the node must have a grandparent, as the parent
 	 * is red, and the root node is always black. */
@@ -129,14 +133,17 @@ void rbtree_insert_case3(RBTree *tree, RBNode *node)
     grand_father = node->father->father;
     uncle = get_brother_node(node->father);
 
-    if(uncle != NULL && uncle->color == RED){
+    if(uncle != NULL && uncle->color == RED)
+    {
         node->father->color = BLACK;
         uncle->color = BLACK;
         grand_father->color = RED;
 
-        rbtree_insert_case1(tree,grand_father);
-    } else {
-        rbtree_insert_case4(tree,node);
+        rbtree_insert_case1(tree, grand_father);
+    }
+    else
+    {
+        rbtree_insert_case4(tree, node);
     }
 }
 
@@ -163,22 +170,28 @@ void rbtree_insert_case4(RBTree *tree, RBNode *node)
 
     rbNodeSide = get_node_side(node);
 
-    if(rbNodeSide != get_node_side(node->father)){
+    if(rbNodeSide != get_node_side(node->father))
+    {
 
         next_node = node->father;
 
         /* Rotate around the parent in the opposite direction
 		 * to side. */
-        if(rbNodeSide == LEFT_SIDE) {
-            right_rotation(tree,node->father);
-        } else {
-            left_rotation(tree,node->father);
+        if(rbNodeSide == LEFT_SIDE)
+        {
+            right_rotation(tree, node->father);
         }
-    } else {
+        else
+        {
+            left_rotation(tree, node->father);
+        }
+    }
+    else
+    {
         next_node = node;
     }
 
-    rbtree_insert_case5(tree,next_node);
+    rbtree_insert_case5(tree, next_node);
 }
 
 /* Case 5: The node is on the same side relative to its parent as the
@@ -198,7 +211,7 @@ void rbtree_insert_case4(RBTree *tree, RBNode *node)
 
 void rbtree_insert_case5(RBTree *tree, RBNode *node)
 {
-    RBNode * father, *grand_father;
+    RBNode *father, *grand_father;
     NodeSide rbNodeSide;
 
     father = node->father;
@@ -209,12 +222,14 @@ void rbtree_insert_case5(RBTree *tree, RBNode *node)
     father->color = BLACK;
     grand_father->color = RED;
 
-    if(rbNodeSide == LEFT_SIDE){
-        grand_father = right_rotation(tree,grand_father);
-    } else {
-        grand_father = left_rotation(tree,grand_father);
+    if(rbNodeSide == LEFT_SIDE)
+    {
+        grand_father = right_rotation(tree, grand_father);
     }
-
+    else
+    {
+        grand_father = left_rotation(tree, grand_father);
+    }
 
 
 }
@@ -228,7 +243,8 @@ int search_element_in_rbtree(const RBTree *rbTree, const Element element)
 void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName)
 {
     /* quit if the tree is empty */
-    if(rbTree->root == NULL){
+    if(rbTree->root == NULL)
+    {
         return;
     }
     FILE *digraph_file;
@@ -236,9 +252,12 @@ void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName)
 
     fprintf(digraph_file, "strict digraph RBT {\n node [style=filled fontcolor=white] \n");
     print_element_int(rbTree->root->data, digraph_file);
-    if(rbTree->root->color == RED){
+    if(rbTree->root->color == RED)
+    {
         fprintf(digraph_file, " [fillcolor=red]\n");
-    } else {
+    }
+    else
+    {
         fprintf(digraph_file, " [fillcolor=black]\n");
     }
     recursive_write_digraph(rbTree->root, digraph_file);
@@ -261,7 +280,7 @@ RBNode *create_node_rbtree(const Element element)
 
 static void recursive_free_avl(RBTree *rbtree, RBNode *rbNode)
 {
-    if (rbNode != NULL)
+    if(rbNode != NULL)
     {
         recursive_free_avl(rbtree, rbNode->left_child);
         recursive_free_avl(rbtree, rbNode->right_child);
@@ -272,10 +291,20 @@ static void recursive_free_avl(RBTree *rbtree, RBNode *rbNode)
 
 static int recursive_search_element(const RBNode *rbNode, const Element element)
 {
-    if (rbNode == NULL) return 0;
-    else if (compare_element_int(element, rbNode->data) > 0) return recursive_search_element(rbNode->right_child, element);
-    else if (compare_element_int(element, rbNode->data) < 0) return recursive_search_element(rbNode->left_child, element);
-    else return 1;
+    if(rbNode == NULL)
+    {
+        return 0;
+    }
+    else if(compare_element_int(element, rbNode->data) > 0)
+    {
+        return recursive_search_element(rbNode->right_child, element);
+    }
+    else if(compare_element_int(element, rbNode->data) < 0)
+    {
+        return recursive_search_element(rbNode->left_child, element);
+    }
+    else
+    { return 1; }
 }
 
 static void write_node_in_file(const RBNode *rbNode, FILE *file)
@@ -288,37 +317,43 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
     fprintf(file, " ->");
     fprintf(file, " { ");
 
-    if (rbNode->left_child != NULL || rbNode->right_child != NULL)
+    if(rbNode->left_child != NULL || rbNode->right_child != NULL)
     {
 
-        if (rbNode->left_child != NULL)
+        if(rbNode->left_child != NULL)
         {
             print_element_int(rbNode->left_child->data, file);
-            if (rbNode->left_child->color == BLACK)
+            if(rbNode->left_child->color == BLACK)
             {
                 fprintf(file, black_color);
-            } else
+            }
+            else
             {
                 fprintf(file, red_color);
             }
         }
         else
+        {
             fprintf(file, "id%d [shape=point]", idnumer++);
+        }
 
         fprintf(file, " ");
-        if (rbNode->right_child != NULL)
+        if(rbNode->right_child != NULL)
         {
             print_element_int(rbNode->right_child->data, file);
-            if (rbNode->right_child->color == BLACK)
+            if(rbNode->right_child->color == BLACK)
             {
                 fprintf(file, black_color);
-            } else
+            }
+            else
             {
                 fprintf(file, red_color);
             }
         }
         else
+        {
             fprintf(file, "id%d [shape=point]", idnumer++);
+        }
     }
 
     fprintf(file, "};\n");
@@ -326,7 +361,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
 
 static void recursive_write_digraph(const RBNode *noeud, FILE *file)
 {
-    if (noeud != NULL)
+    if(noeud != NULL)
     {
         write_node_in_file(noeud, file);
         recursive_write_digraph(noeud->left_child, file);
@@ -352,29 +387,32 @@ void remove_element_from_rbtree(RBTree *rbTree, const Element element)
 
  */
 
-RBNode *right_rotation(RBTree* rbTree,RBNode *root)
+RBNode *right_rotation(RBTree *rbTree, RBNode *root)
 {
     RBNode *new_root;
     new_root = root->left_child;
 
     /* update the father to point to the new child*/
-    if (root->father != NULL)
+    if(root->father != NULL)
     {
-        if (get_node_side(root) == RIGHT_SIDE)
+        if(get_node_side(root) == RIGHT_SIDE)
         {
             root->father->right_child = new_root;
-        } else
+        }
+        else
         {
             root->father->left_child = new_root;
         }
-    } else {
+    }
+    else
+    {
         rbTree->root = new_root;
     }
 
     /* the new father of new_root is the father of the old root*/
     new_root->father = root->father;
     root->left_child = new_root->right_child;
-    if (new_root->right_child != NULL)
+    if(new_root->right_child != NULL)
     {
         new_root->right_child->father = root;
     }
@@ -403,23 +441,26 @@ RBNode *left_rotation(RBTree *rbTree, RBNode *root)
 
 
     /* update the father to point to the new child*/
-    if (root->father != NULL)
+    if(root->father != NULL)
     {
-        if (get_node_side(root) == RIGHT_SIDE)
+        if(get_node_side(root) == RIGHT_SIDE)
         {
             root->father->right_child = new_root;
-        } else
+        }
+        else
         {
             root->father->left_child = new_root;
         }
-    } else {
+    }
+    else
+    {
         rbTree->root = new_root;
     }
 
     /* the new father of new_root is the father of the old root*/
     new_root->father = root->father;
     root->right_child = new_root->left_child;
-    if (new_root->left_child != NULL)
+    if(new_root->left_child != NULL)
     {
         new_root->left_child->father = root;
     }
@@ -430,15 +471,19 @@ RBNode *left_rotation(RBTree *rbTree, RBNode *root)
 }
 
 
-
 NodeSide get_node_side(const RBNode *node)
 {
-    if (node->father != NULL)
+    if(node->father != NULL)
     {
-        if (node->father->right_child == node)
+        if(node->father->right_child == node)
+        {
             return RIGHT_SIDE;
-        else return LEFT_SIDE;
-    } else return NO_SIDE;
+        }
+        else
+        { return LEFT_SIDE; }
+    }
+    else
+    { return NO_SIDE; }
 }
 
 RBNode *get_brother_node(const RBNode *node)
@@ -457,14 +502,17 @@ RBNode *get_brother_node(const RBNode *node)
     return NULL;
 }
 
-int compute_height(const RBNode * rbNode)
+int compute_height(const RBNode *rbNode)
 {
-    if (rbNode == NULL)
+    if(rbNode == NULL)
+    {
         return 0;
-    else return 1 + MAX(compute_height(rbNode->right_child), compute_height(rbNode->left_child));
+    }
+    else
+    { return 1 + MAX(compute_height(rbNode->right_child), compute_height(rbNode->left_child)); }
 }
 
-int get_rbtree_height(const  RBTree * rbTree)
+int get_rbtree_height(const RBTree *rbTree)
 {
     return compute_height(rbTree->root);
 }

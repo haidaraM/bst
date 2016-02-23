@@ -3,10 +3,9 @@
 */
 #include <stdlib.h>
 #include "Collection.h"
-#include "Avl.h"
 #include "Rbt.h"
 
-void initialize_collection(Collection *collection,TypePackage *typePackage)
+void initialize_collection(Collection *collection, TypePackage *typePackage)
 {
 
 #ifdef AVL
@@ -14,7 +13,7 @@ void initialize_collection(Collection *collection,TypePackage *typePackage)
     initialize_avl((Avl*)collection->root,typePackage);
 #elif RBT
     collection->root = (RBTree *) malloc(sizeof(RBTree));
-    initialize_rbtree((RBTree *) collection->root,typePackage);
+    initialize_rbtree((RBTree *) collection->root, typePackage);
 #endif
 }
 
@@ -73,7 +72,7 @@ unsigned long get_nb_elements_in_collection(const Collection *collection)
 #ifdef AVL
     return get_nb_elements_in_avl((Avl*) collection->root);
 #elif RBT
-    return get_nb_elements_in_rbtree((RBTree*) collection->root);
+    return get_nb_elements_in_rbtree((RBTree *) collection->root);
 #endif
 
 }

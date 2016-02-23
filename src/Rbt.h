@@ -7,6 +7,7 @@
 #include "Element.h"
 #include "Utils.h"
 #include "TypePackage.h"
+
 /**
  * @enum Color
  * @brief Enum to specify the node color
@@ -58,12 +59,12 @@ void free_rbtree(RBTree *rbTree);
  * @param element element to insert
  * @return return the inserted node or NULL if there was no node inserted
  */
-RBNode * insert_element_in_rbtree(RBTree *rbTree, const Element element);
+RBNode *insert_element_in_rbtree(RBTree *rbTree, const Element element);
 
 /**
  * @brief Get the number of elements in the tree
  */
-unsigned long get_nb_elements_in_rbtree(const RBTree * rbTree);
+unsigned long get_nb_elements_in_rbtree(const RBTree *rbTree);
 
 /**
  * @brief an element in the tree
@@ -75,12 +76,12 @@ int search_element_in_rbtree(const RBTree *rbTree, const Element element);
 /**
  * @brief get the height of the tree
  */
-int get_rbtree_height(const  RBTree * rbTree);
+int get_rbtree_height(const RBTree *rbTree);
 
 /**
  * @brief Remove an element in the tree
  */
-void remove_element_from_rbtree(RBTree * rbTree, const Element element);
+void remove_element_from_rbtree(RBTree *rbTree, const Element element);
 
 
 /**
@@ -100,9 +101,7 @@ NodeSide get_node_side(const RBNode *node);
  * @brief Get the brother node of a node.
  * @return the brother if it's exist, NULL otherwise
  */
-RBNode * get_brother_node(const RBNode * node);
-
-
+RBNode *get_brother_node(const RBNode *node);
 
 
 #endif

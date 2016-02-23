@@ -22,7 +22,7 @@ typedef struct
  * @brief Initialize a collection
  * @param collection collection to initialize
  */
-void initialize_collection(Collection *collection, TypePackage * typePackage);
+void initialize_collection(Collection *collection, TypePackage *typePackage);
 
 /**
  * @brief Testament of the collection
@@ -36,7 +36,7 @@ void free_collection(Collection *collection);
  * @param element element to insert
  * @return A pointer on the inserted node
  */
-void * insert_element_in_collection(Collection *collection, const Element element);
+void *insert_element_in_collection(Collection *collection, const Element element);
 
 
 /**
@@ -44,7 +44,7 @@ void * insert_element_in_collection(Collection *collection, const Element elemen
  * @param collection
  * @param element element to remove
  */
-void remove_element_from_collection(Collection * collection, const Element element);
+void remove_element_from_collection(Collection *collection, const Element element);
 
 
 /**
@@ -61,7 +61,7 @@ int search_element_in_collection(const Collection *collection, const Element ele
  * @param collection
  * @return the number of elements in the collection
  */
-unsigned long get_nb_elements_in_collection(const Collection * collection);
+unsigned long get_nb_elements_in_collection(const Collection *collection);
 
 /**
  * @brief Create a file in dot format for the given collection

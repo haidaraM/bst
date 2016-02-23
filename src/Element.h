@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 /**< An element in the tree. */
-typedef void * Element;
+typedef void *Element;
 
 /**
  * @brief Print the element in the given stream.

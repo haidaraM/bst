@@ -5,13 +5,9 @@
 #include "Ascii.h"
 
 #include <stdlib.h>
-#include <stdio.h>
-#include "Ascii.h"
 #include <string.h>
 #include "Avl.h"
-#include "Utils.h"
 #include "Rbt.h"
-#include "Collection.h"
 
 
 #define MAX_HEIGHT 1000
@@ -57,10 +53,11 @@ fields have been computed for this tree.
 static void compute_lprofile(Asciinode *node, int x, int y)
 {
     int i, isleft;
-    if (node == NULL) return;
+    if(node == NULL)
+    { return; }
     isleft = (node->parent_dir == -1);
     lprofile[y] = MIN(lprofile[y], x - ((node->lablen - isleft) / 2));
-    if (node->left != NULL)
+    if(node->left != NULL)
     {
         for (i = 1; i <= node->edge_length && y + i < MAX_HEIGHT; i++)
         {
@@ -74,10 +71,11 @@ static void compute_lprofile(Asciinode *node, int x, int y)
 static void compute_rprofile(Asciinode *node, int x, int y)
 {
     int i, notleft;
-    if (node == NULL) return;
+    if(node == NULL)
+    { return; }
     notleft = (node->parent_dir != -1);
     rprofile[y] = MAX(rprofile[y], x + ((node->lablen - notleft) / 2));
-    if (node->right != NULL)
+    if(node->right != NULL)
     {
         for (i = 1; i <= node->edge_length && y + i < MAX_HEIGHT; i++)
         {
@@ -95,9 +93,10 @@ that the node has the given x cordinate.
 static void print_level(Asciinode *node, int x, int level)
 {
     int i, isleft;
-    if (node == NULL) return;
+    if(node == NULL)
+    { return; }
     isleft = (node->parent_dir == -1);
-    if (level == 0)
+    if(level == 0)
     {
         for (i = 0; i < (x - print_next - ((node->lablen - isleft) / 2)); i++)
         {
@@ -107,9 +106,9 @@ static void print_level(Asciinode *node, int x, int level)
         printf("%s", node->label);
         print_next += node->lablen;
     }
-    else if (node->edge_length >= level)
+    else if(node->edge_length >= level)
     {
-        if (node->left != NULL)
+        if(node->left != NULL)
         {
             for (i = 0; i < (x - print_next - (level)); i++)
             {
@@ -119,7 +118,7 @@ static void print_level(Asciinode *node, int x, int level)
             printf("/");
             print_next++;
         }
-        if (node->right != NULL)
+        if(node->right != NULL)
         {
             for (i = 0; i < (x - print_next + (level)); i++)
             {
@@ -143,18 +142,19 @@ static void print_level(Asciinode *node, int x, int level)
 static void compute_edge_lengths(Asciinode *node)
 {
     int h, hmin, i, delta;
-    if (node == NULL) return;
+    if(node == NULL)
+    { return; }
     compute_edge_lengths(node->left);
     compute_edge_lengths(node->right);
 
     /* first fill in the edge_length of node */
-    if (node->right == NULL && node->left == NULL)
+    if(node->right == NULL && node->left == NULL)
     {
         node->edge_length = 0;
     }
     else
     {
-        if (node->left != NULL)
+        if(node->left != NULL)
         {
             for (i = 0; i < node->left->height && i < MAX_HEIGHT; i++)
             {
@@ -167,7 +167,7 @@ static void compute_edge_lengths(Asciinode *node)
         {
             hmin = 0;
         }
-        if (node->right != NULL)
+        if(node->right != NULL)
         {
             for (i = 0; i < node->right->height && i < MAX_HEIGHT; i++)
             {
@@ -187,8 +187,8 @@ static void compute_edge_lengths(Asciinode *node)
         }
 
         /*If the node has two children of height 1, then we allow the two leaves to be within 1, instead of 2*/
-        if (((node->left != NULL && node->left->height == 1) ||
-             (node->right != NULL && node->right->height == 1)) && delta > 4)
+        if(((node->left != NULL && node->left->height == 1) ||
+            (node->right != NULL && node->right->height == 1)) && delta > 4)
         {
             delta--;
         }
@@ -198,11 +198,11 @@ static void compute_edge_lengths(Asciinode *node)
 
     /* now fill in the height of node*/
     h = 1;
-    if (node->left != NULL)
+    if(node->left != NULL)
     {
         h = MAX(node->left->height + node->edge_length + 1, h);
     }
-    if (node->right != NULL)
+    if(node->right != NULL)
     {
         h = MAX(node->right->height + node->edge_length + 1, h);
     }
@@ -210,11 +210,12 @@ static void compute_edge_lengths(Asciinode *node)
 }
 
 
-static Asciinode *build_ascii_tree_collection(TypePackage * typePackage, void *t)
+static Asciinode *build_ascii_tree_collection(TypePackage *typePackage, void *t)
 {
     Asciinode *asciinode;
 
-    if (t == NULL) return NULL;
+    if(t == NULL)
+    { return NULL; }
 
     asciinode = malloc(sizeof(Asciinode));
 #ifdef AVL
@@ -224,18 +225,18 @@ static Asciinode *build_ascii_tree_collection(TypePackage * typePackage, void *t
     asciinode->right = build_ascii_tree_collection(typePackage,node->right_child);
     typePackage->write_element_in_char_array(node->data, asciinode->label);
 #elif RBT
-    RBNode * node = (RBNode *)t;
-    asciinode->left = build_ascii_tree_collection(typePackage,node->left_child);
-    asciinode->right = build_ascii_tree_collection(typePackage,node->right_child);
+    RBNode *node = (RBNode *) t;
+    asciinode->left = build_ascii_tree_collection(typePackage, node->left_child);
+    asciinode->right = build_ascii_tree_collection(typePackage, node->right_child);
     typePackage->write_element_in_char_array(node->data, asciinode->label);
 #endif
 
-    if (asciinode->left != NULL)
+    if(asciinode->left != NULL)
     {
         asciinode->left->parent_dir = -1;
     }
 
-    if (asciinode->right != NULL)
+    if(asciinode->right != NULL)
     {
         asciinode->right->parent_dir = 1;
     }
@@ -247,14 +248,14 @@ static Asciinode *build_ascii_tree_collection(TypePackage * typePackage, void *t
 }
 
 
-
 /**
  * @brief Copy the tree into the ascii node structre
  */
 static Asciinode *build_ascii_tree(Collection *t)
 {
     Asciinode *node;
-    if (t == NULL) return NULL;
+    if(t == NULL)
+    { return NULL; }
 #ifdef AVL
     Avl *avl = (Avl *) t->root;
     TypePackage * typePackage = avl->typePackage;
@@ -262,8 +263,8 @@ static Asciinode *build_ascii_tree(Collection *t)
 
 #elif RBT
     RBTree *rbTree = (RBTree *) t->root;
-    TypePackage * typePackage = rbTree->typePackage;
-    node = build_ascii_tree_collection(typePackage,rbTree->root);
+    TypePackage *typePackage = rbTree->typePackage;
+    node = build_ascii_tree_collection(typePackage, rbTree->root);
 #endif
     node->parent_dir = 0;
 
@@ -275,7 +276,8 @@ static Asciinode *build_ascii_tree(Collection *t)
  */
 static void free_ascii_tree(Asciinode *node)
 {
-    if (node == NULL) return;
+    if(node == NULL)
+    { return; }
     free_ascii_tree(node->left);
     free_ascii_tree(node->right);
     free(node);
@@ -286,7 +288,8 @@ void show_collection_in_ascii(Collection *t)
 {
     Asciinode *proot;
     int xmin, i;
-    if (t == NULL) return;
+    if(t == NULL)
+    { return; }
     proot = build_ascii_tree(t);
     compute_edge_lengths(proot);
     for (i = 0; i < proot->height && i < MAX_HEIGHT; i++)
@@ -305,7 +308,7 @@ void show_collection_in_ascii(Collection *t)
         print_level(proot, -xmin, i);
         printf("\n");
     }
-    if (proot->height >= MAX_HEIGHT)
+    if(proot->height >= MAX_HEIGHT)
     {
         printf("(This tree is taller than %d, and may be drawn incorrectly.)\n", MAX_HEIGHT);
     }

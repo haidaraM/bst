@@ -18,5 +18,5 @@ int MAX(int x, int y)
 
 int get_random_between(int inf, int sup)
 {
-    return rand() %(sup - inf) + inf;
+    return rand() % (sup - inf) + inf;
 }

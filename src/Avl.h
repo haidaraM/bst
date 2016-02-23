@@ -63,7 +63,7 @@ int search_element_in_avl(const Avl *avl, const Element element);
 unsigned long get_nb_elements_in_avl(const Avl *avl);
 
 
-void remove_element_from_avl(Avl * avl, const Element element);
+void remove_element_from_avl(Avl *avl, const Element element);
 
 /**
  * @brief Get the height of the tree
@@ -77,7 +77,7 @@ int get_avl_height(const Avl *avl);
  * @param avl avl in which you wan to insert
  * @param element element to insert
  */
-AVLNode * insert_element_in_avl(Avl *avl, const Element element);
+AVLNode *insert_element_in_avl(Avl *avl, const Element element);
 
 /**
  * @brief Create a file in dot format for the given AVL
