@@ -45,5 +45,5 @@ dot -Tsvg generatedFile > tree_in_svg.svg
 
 ### TODO
  - Use a key/value system to store element in collection
- - Implement remove, size functions
+ - Implement remove element function
  
