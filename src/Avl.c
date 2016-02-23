@@ -102,7 +102,7 @@ int search_element_in_avl(const Avl *avl, const Element element)
 }
 
 
-static void write_node_in_file(const Avl *avl, const AVLNode *noeud, FILE *file)
+void write_node_in_file(const Avl *avl, const AVLNode *noeud, FILE *file)
 {
 
     static int idnumer = 0;
@@ -139,7 +139,7 @@ static void write_node_in_file(const Avl *avl, const AVLNode *noeud, FILE *file)
 /**
  * @brief create a node with element as data
  */
-static AVLNode *create_node_avl(const Element element)
+AVLNode *create_node_avl(const Element element)
 {
     AVLNode *n = malloc(sizeof(AVLNode));
     n->data = element;
@@ -150,7 +150,7 @@ static AVLNode *create_node_avl(const Element element)
 }
 
 
-static void recursive_write_digraph(const Avl *avl, const AVLNode *noeud, FILE *file)
+void recursive_write_digraph(const Avl *avl, const AVLNode *noeud, FILE *file)
 {
     if(noeud != NULL)
     {
@@ -161,7 +161,7 @@ static void recursive_write_digraph(const Avl *avl, const AVLNode *noeud, FILE *
 }
 
 
-static void recursive_free(Avl *avl, AVLNode *noeud)
+void recursive_free(Avl *avl, AVLNode *noeud)
 {
     if(noeud != NULL)
     {
@@ -198,7 +198,7 @@ AVLNode *recursive_insertion(Avl *avl, AVLNode **pNoeud, AVLNode *fatherNode, co
     return NULL;
 }
 
-static void recursive_rotation(AVLNode **noeud)
+void recursive_rotation(AVLNode **noeud)
 {
 
     if(*noeud != NULL)
@@ -237,13 +237,13 @@ static void recursive_rotation(AVLNode **noeud)
     }
 }
 
-static void rotate_avl(Avl *avl)
+void rotate_avl(Avl *avl)
 {
     recursive_rotation(&avl->root);
 }
 
 
-static AVLNode *right_rotation(AVLNode *root)
+AVLNode *right_rotation(AVLNode *root)
 {
     AVLNode *new_root;
     new_root = root->left_child;
@@ -254,7 +254,7 @@ static AVLNode *right_rotation(AVLNode *root)
 }
 
 
-static AVLNode *left_rotation(AVLNode *root)
+AVLNode *left_rotation(AVLNode *root)
 {
     AVLNode *new_root;
     new_root = root->right_child;
@@ -264,7 +264,7 @@ static AVLNode *left_rotation(AVLNode *root)
 }
 
 
-static int compute_height(const AVLNode *noeud)
+int compute_height(const AVLNode *noeud)
 {
     if(noeud == NULL)
     {

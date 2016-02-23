@@ -35,7 +35,7 @@ void free_rbtree(RBTree *rbTree)
 }
 
 
-static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNode *fatherNode, const Element element)
+RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNode *fatherNode, const Element element)
 {
     if(*pNoeud == NULL)
     {
@@ -278,7 +278,7 @@ RBNode *create_node_rbtree(const Element element)
     return rbNode;
 }
 
-static void recursive_free_avl(RBTree *rbtree, RBNode *rbNode)
+void recursive_free_avl(RBTree *rbtree, RBNode *rbNode)
 {
     if(rbNode != NULL)
     {
@@ -289,7 +289,7 @@ static void recursive_free_avl(RBTree *rbtree, RBNode *rbNode)
     }
 }
 
-static int recursive_search_element(const RBNode *rbNode, const Element element)
+int recursive_search_element(const RBNode *rbNode, const Element element)
 {
     if(rbNode == NULL)
     {
@@ -307,7 +307,7 @@ static int recursive_search_element(const RBNode *rbNode, const Element element)
     { return 1; }
 }
 
-static void write_node_in_file(const RBNode *rbNode, FILE *file)
+void write_node_in_file(const RBNode *rbNode, FILE *file)
 {
     const char black_color[] = " [fillcolor=black]";
     const char red_color[] = " [fillcolor=red]";
@@ -359,7 +359,7 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
     fprintf(file, "};\n");
 }
 
-static void recursive_write_digraph(const RBNode *noeud, FILE *file)
+void recursive_write_digraph(const RBNode *noeud, FILE *file)
 {
     if(noeud != NULL)
     {
