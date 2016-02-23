@@ -227,6 +227,10 @@ int search_element_in_rbtree(const RBTree *rbTree, const Element element)
 
 void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName)
 {
+    /* quit if the tree is empty */
+    if(rbTree->root == NULL){
+        return;
+    }
     FILE *digraph_file;
     digraph_file = fopen(fileName, "w");
 

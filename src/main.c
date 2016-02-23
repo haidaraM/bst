@@ -19,8 +19,6 @@
  * @author Mohamed El Mouctar HAIDARA - elmhaidara@gmail.com
  */
 
-/* Max value of random number */
-
 
 int main(int argc, char const *ar[])
 {
@@ -42,7 +40,7 @@ int main(int argc, char const *ar[])
     const char fichier[] = "tree.gv";
     char commande[256];
     create_dot_file_for_collection(&a, fichier);
-    sprintf(commande, "dot -Tsvg %s > %s.svg && open %s.svg", fichier, fichier, fichier);
+    sprintf(commande, "dot -Tsvg:svg %s > %s.svg && open %s.svg", fichier, fichier, fichier);
     system(commande);
 
 
@@ -51,5 +49,3 @@ int main(int argc, char const *ar[])
 
     return 0;
 }
-
-
