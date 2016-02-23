@@ -102,8 +102,8 @@ static void write_node_in_file(const Avl *avl,const AVLNode *noeud, FILE *file)
 
     static int idnumer = 0;
     print_element_int(noeud->data, file);
-    fprintf(file, "->");
-    fprintf(file, "{");
+    fprintf(file, " ->");
+    fprintf(file, " { ");
     if (noeud->left_child != NULL || noeud->right_child != NULL)
     {
 

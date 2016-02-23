@@ -230,12 +230,12 @@ void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName)
     FILE *digraph_file;
     digraph_file = fopen(fileName, "w");
 
-    fprintf(digraph_file, "strict digraph AVL {\n node [style=filled fontcolor=white] \n");
+    fprintf(digraph_file, "strict digraph RBT {\n node [style=filled fontcolor=white] \n");
     print_element_int(rbTree->root->data, digraph_file);
     if(rbTree->root->color == RED){
-        fprintf(digraph_file, "[fillcolor=red]");
+        fprintf(digraph_file, " [fillcolor=red]\n");
     } else {
-        fprintf(digraph_file, "[fillcolor=black]");
+        fprintf(digraph_file, " [fillcolor=black]\n");
     }
     recursive_write_digraph(rbTree->root, digraph_file);
     fprintf(digraph_file, "}\n");
@@ -281,8 +281,8 @@ static void write_node_in_file(const RBNode *rbNode, FILE *file)
 
     static int idnumer = 0;
     print_element_int(rbNode->data, file);
-    fprintf(file, "->");
-    fprintf(file, "{ ");
+    fprintf(file, " ->");
+    fprintf(file, " { ");
 
     if (rbNode->left_child != NULL || rbNode->right_child != NULL)
     {
