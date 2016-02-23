@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "Collection.h"
 #include "Rbt.h"
+#include "Avl.h"
 
 void initialize_collection(Collection *collection, TypePackage *typePackage)
 {
