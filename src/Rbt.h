@@ -93,15 +93,15 @@ void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName);
 
 /**
  * @brief Check if a node is the right child of its father
- * @return 1 if it's the case, -1 if the node has no father, 0 if the it's the left child
+ * @return LEFT_SIDE if the node is at left, RIGHT_SIDE if the node is at right. NO_SIDE if the node has no father
  */
-NodeSide get_node_side(const RBNode *node);
+NodeSide get_node_side_rbtree(const RBNode *node);
 
 /**
  * @brief Get the brother node of a node.
  * @return the brother if it's exist, NULL otherwise
  */
-RBNode *get_brother_node(const RBNode *node);
+RBNode *get_brother_node_rbtree(const RBNode *node);
 
 
 #endif

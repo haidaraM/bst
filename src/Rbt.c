@@ -131,7 +131,7 @@ void rbtree_insert_case3(RBTree *tree, RBNode *node)
 	 * is red, and the root node is always black. */
 
     grand_father = node->father->father;
-    uncle = get_brother_node(node->father);
+    uncle = get_brother_node_rbtree(node->father);
 
     if(uncle != NULL && uncle->color == RED)
     {
@@ -168,9 +168,9 @@ void rbtree_insert_case4(RBTree *tree, RBNode *node)
     RBNode *next_node;
     NodeSide rbNodeSide;
 
-    rbNodeSide = get_node_side(node);
+    rbNodeSide = get_node_side_rbtree(node);
 
-    if(rbNodeSide != get_node_side(node->father))
+    if(rbNodeSide != get_node_side_rbtree(node->father))
     {
 
         next_node = node->father;
@@ -217,7 +217,7 @@ void rbtree_insert_case5(RBTree *tree, RBNode *node)
     father = node->father;
     grand_father = father->father;
 
-    rbNodeSide = get_node_side(node);
+    rbNodeSide = get_node_side_rbtree(node);
 
     father->color = BLACK;
     grand_father->color = RED;
@@ -395,7 +395,7 @@ RBNode *right_rotation(RBTree *rbTree, RBNode *root)
     /* update the father to point to the new child*/
     if(root->father != NULL)
     {
-        if(get_node_side(root) == RIGHT_SIDE)
+        if(get_node_side_rbtree(root) == RIGHT_SIDE)
         {
             root->father->right_child = new_root;
         }
@@ -443,7 +443,7 @@ RBNode *left_rotation(RBTree *rbTree, RBNode *root)
     /* update the father to point to the new child*/
     if(root->father != NULL)
     {
-        if(get_node_side(root) == RIGHT_SIDE)
+        if(get_node_side_rbtree(root) == RIGHT_SIDE)
         {
             root->father->right_child = new_root;
         }
@@ -471,7 +471,7 @@ RBNode *left_rotation(RBTree *rbTree, RBNode *root)
 }
 
 
-NodeSide get_node_side(const RBNode *node)
+NodeSide get_node_side_rbtree(const RBNode *node)
 {
     if(node->father != NULL)
     {
@@ -486,9 +486,9 @@ NodeSide get_node_side(const RBNode *node)
     { return NO_SIDE; }
 }
 
-RBNode *get_brother_node(const RBNode *node)
+RBNode *get_brother_node_rbtree(const RBNode *node)
 {
-    NodeSide is_right = get_node_side(node);
+    NodeSide is_right = get_node_side_rbtree(node);
     switch (is_right)
     {
         case RIGHT_SIDE: /* node is the right child so we return the left child*/

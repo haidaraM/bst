@@ -157,22 +157,62 @@ void test_get_height()
 }
 
 void test_get_nb_elements()
-
 {
     RBTree rbTree;
     TypePackage typePackage = get_int_typePackage();
     initialize_rbtree(&rbTree, &typePackage);
+    /* tree must be empty */
     assert(get_nb_elements_in_rbtree(&rbTree) == 0);
 
     insert_element_in_rbtree(&rbTree,create_element_int(14));
+    /* tree must contains one element */
     assert(get_nb_elements_in_rbtree(&rbTree) == 1);
 
     Element element14 = create_element_int(14);
     insert_element_in_rbtree(&rbTree,element14);
+    /* No duplicate elements in the tree => the nb elements don't change */
     assert(get_nb_elements_in_rbtree(&rbTree) == 1);
 
     free_rbtree(&rbTree);
     free(element14);
+}
+
+void test_get_node_side_rbtree()
+{
+    RBTree rbTree;
+    TypePackage typePackage = get_int_typePackage();
+    initialize_rbtree(&rbTree, &typePackage);
+
+    /* insert one element, the root */
+    insert_element_in_rbtree(&rbTree,create_element_int(14));
+    assert(get_node_side_rbtree(rbTree.root) == NO_SIDE);
+
+    /* insert element lower than the root. So it's must be at the left of the root */
+    insert_element_in_rbtree(&rbTree,create_element_int(1));
+    assert(get_node_side_rbtree(rbTree.root->left_child) == LEFT_SIDE);
+}
+
+void test_get_brother_node_rbtree()
+{
+    RBTree rbTree;
+    TypePackage typePackage = get_int_typePackage();
+    initialize_rbtree(&rbTree, &typePackage);
+
+    /* insert one element, the root */
+    insert_element_in_rbtree(&rbTree,create_element_int(14));
+    /* the root has no brother */
+    assert(get_brother_node_rbtree(rbTree.root) == NULL);
+
+    /* insert element lower than the root. So it's must be at the left of the root */
+    insert_element_in_rbtree(&rbTree,create_element_int(1));
+    /* the left child has no brother */
+    assert(get_brother_node_rbtree(rbTree.root->left_child) == NULL);
+
+    /* insert element greater than the root. So it's must be at the right of the root */
+    insert_element_in_rbtree(&rbTree,create_element_int(20));
+    assert(get_brother_node_rbtree(rbTree.root->left_child) == rbTree.root->right_child);
+    assert(get_brother_node_rbtree(rbTree.root->right_child) == rbTree.root->left_child);
+
 }
 
 int main(int argc, char const *ar[])
@@ -181,5 +221,7 @@ int main(int argc, char const *ar[])
     test_right_rotation();
     test_get_height();
     test_get_nb_elements();
+    test_get_node_side_rbtree();
+    test_get_brother_node_rbtree();
     return 0;
 }
