@@ -4,7 +4,7 @@ Implementation of some Binary Search Trees in C
 [![Build Status](https://travis-ci.org/haidaraM/bst.svg?branch=master)](https://travis-ci.org/haidaraM/bst)
 
 ## Trees
-The following BST are implemented
+The following BST are implemented : 
  - AVL
  - Red–black tree
 
@@ -46,4 +46,5 @@ dot -Tsvg generatedFile > tree_in_svg.svg
 ### TODO
  - Use a key/value system to store element in collection
  - Implement remove element function
+ - Benchmark
  
