@@ -28,6 +28,7 @@ void free_collection(Collection *collection)
     free_rbtree((RBTree *) collection->root);
     free(collection->root);
 #endif
+    collection->root = NULL;
 }
 
 void *insert_element_in_collection(Collection *pos, const Element val)
