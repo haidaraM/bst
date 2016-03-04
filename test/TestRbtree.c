@@ -3,8 +3,8 @@
 #include "Rbt.h"
 
 
-RBNode *left_rotation(RBTree * rbTree,RBNode *root);
-RBNode *right_rotation(RBTree * rbTree,RBNode *root);
+RBNode *left_rotation_rbtree(RBTree *rbTree, RBNode *root);
+RBNode *right_rotation_rbtree(RBTree *rbTree, RBNode *root);
 RBNode *create_node_rbtree(const Element element);
 /**
        1                      1
@@ -42,7 +42,7 @@ void test_left_rotation()
     rightNode->right_child->right_child = create_node_rbtree(element4);
     rightNode->right_child->right_child->father = rightNode->right_child;
 
-    RBNode *new_right_child = left_rotation(NULL, rightNode);
+    RBNode *new_right_child = left_rotation_rbtree(NULL, rightNode);
 
     assert(new_right_child->data == element3);
     assert(new_right_child->father == root);
@@ -104,7 +104,7 @@ void test_right_rotation()
     rightNode->left_child = create_node_rbtree(element2);
     rightNode->left_child->father = rightNode;
 
-    RBNode *new_right_child = right_rotation(NULL, rightNode);
+    RBNode *new_right_child = right_rotation_rbtree(NULL, rightNode);
 
     assert(new_right_child->data == element2);
     assert(new_right_child->father == root);

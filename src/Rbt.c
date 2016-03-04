@@ -14,9 +14,9 @@ static void recursive_write_digraph(const RBNode *noeud, FILE *file);
 
 static RBNode *recursive_insertion_rbtree(RBTree *rbtree, RBNode **pNoeud, RBNode *fatherNode, const Element element);
 
-RBNode *right_rotation(RBTree *rbTree, RBNode *root);
+RBNode *right_rotation_rbtree(RBTree *rbTree, RBNode *root);
 
-RBNode *left_rotation(RBTree *rbTree, RBNode *root);
+RBNode *left_rotation_rbtree(RBTree *rbTree, RBNode *root);
 
 static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 
@@ -179,11 +179,11 @@ void rbtree_insert_case4(RBTree *tree, RBNode *node)
 		 * to side. */
         if(rbNodeSide == LEFT_SIDE)
         {
-            right_rotation(tree, node->father);
+            right_rotation_rbtree(tree, node->father);
         }
         else
         {
-            left_rotation(tree, node->father);
+            left_rotation_rbtree(tree, node->father);
         }
     }
     else
@@ -224,11 +224,11 @@ void rbtree_insert_case5(RBTree *tree, RBNode *node)
 
     if(rbNodeSide == LEFT_SIDE)
     {
-        right_rotation(tree, grand_father);
+        right_rotation_rbtree(tree, grand_father);
     }
     else
     {
-        left_rotation(tree, grand_father);
+        left_rotation_rbtree(tree, grand_father);
     }
 
 
@@ -387,7 +387,7 @@ void remove_element_from_rbtree(RBTree *rbTree, const Element element)
 
  */
 
-RBNode *right_rotation(RBTree *rbTree, RBNode *root)
+RBNode *right_rotation_rbtree(RBTree *rbTree, RBNode *root)
 {
     RBNode *new_root;
     new_root = root->left_child;
@@ -434,7 +434,7 @@ RBNode *right_rotation(RBTree *rbTree, RBNode *root)
  6     8               8     12
 
  */
-RBNode *left_rotation(RBTree *rbTree, RBNode *root)
+RBNode *left_rotation_rbtree(RBTree *rbTree, RBNode *root)
 {
     RBNode *new_root;
     new_root = root->right_child;
