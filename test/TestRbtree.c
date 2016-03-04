@@ -188,6 +188,8 @@ void test_get_node_side_rbtree()
     /* insert element lower than the root. So it's must be at the left of the root */
     insert_element_in_rbtree(&rbTree,create_element_int(1));
     assert(get_node_side_rbtree(rbTree.root->left_child) == LEFT_SIDE);
+
+    free_rbtree(&rbTree);
 }
 
 void test_get_brother_node_rbtree()
@@ -210,6 +212,8 @@ void test_get_brother_node_rbtree()
     insert_element_in_rbtree(&rbTree,create_element_int(20));
     assert(get_brother_node_rbtree(rbTree.root->left_child) == rbTree.root->right_child);
     assert(get_brother_node_rbtree(rbTree.root->right_child) == rbTree.root->left_child);
+
+    free_rbtree(&rbTree);
 
 }
 
