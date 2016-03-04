@@ -87,4 +87,17 @@ AVLNode *insert_element_in_avl(Avl *avl, const Element element);
  */
 void create_dot_file_for_avl(const Avl *avl, const char *fileName);
 
+
+/**
+ * @brief Check if a node is the right or left child of its father
+ * @return LEFT_SIDE if the node is at left, RIGHT_SIDE if the node is at right. NO_SIDE if the node has no father
+ */
+NodeSide get_node_side_avl(const AVLNode *node);
+
+/**
+ * @brief Get the brother node of a node.
+ * @return the brother if it's exist, NULL otherwise
+ */
+AVLNode *get_brother_node_avl(const AVLNode *node);
+
 #endif

@@ -92,7 +92,7 @@ void remove_element_from_rbtree(RBTree *rbTree, const Element element);
 void create_dot_file_for_rbtree(const RBTree *rbTree, const char *fileName);
 
 /**
- * @brief Check if a node is the right child of its father
+ * @brief Check if a node is the right or left child of its father
  * @return LEFT_SIDE if the node is at left, RIGHT_SIDE if the node is at right. NO_SIDE if the node has no father
  */
 NodeSide get_node_side_rbtree(const RBNode *node);

@@ -282,3 +282,33 @@ unsigned long get_nb_elements_in_avl(const Avl *avl)
 {
     return avl->nb_elements;
 }
+
+
+NodeSide get_node_side_avl(const AVLNode *node)
+{
+    if(node->father != NULL)
+    {
+        if(node->father->right_child == node)
+        {
+            return RIGHT_SIDE;
+        }
+        else
+        { return LEFT_SIDE; }
+    }
+    else
+    { return NO_SIDE; }
+}
+
+AVLNode *get_brother_node_avl(const AVLNode *node)
+{
+    NodeSide is_right = get_node_side_avl(node);
+    switch (is_right)
+    {
+        case RIGHT_SIDE: /* node is the right child so we return the left child*/
+            return node->father->left_child;
+        case LEFT_SIDE: /* node is the left child so we return the right child*/
+            return node->father->right_child;
+        default: /* the node has no brother*/
+            return NULL;
+    }
+}
