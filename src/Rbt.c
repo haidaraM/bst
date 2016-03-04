@@ -405,7 +405,7 @@ RBNode *right_rotation_rbtree(RBTree *rbTree, RBNode *root)
         }
     }
     else
-    {
+    { /* the node has no father => It's become the root of the tree */
         rbTree->root = new_root;
     }
 
@@ -453,7 +453,7 @@ RBNode *left_rotation_rbtree(RBTree *rbTree, RBNode *root)
         }
     }
     else
-    {
+    { /* the node has no father => It's become the root of the tree */
         rbTree->root = new_root;
     }
 

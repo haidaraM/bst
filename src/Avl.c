@@ -246,7 +246,34 @@ AVLNode *right_rotation_avl(Avl *avl, AVLNode *root)
 {
     AVLNode *new_root;
     new_root = root->left_child;
+
+    /* update the father to point to the new child*/
+    if(root->father != NULL)
+    {
+        if(get_node_side_avl(root) == RIGHT_SIDE)
+        {
+            root->father->right_child = new_root;
+        }
+        else
+        {
+            root->father->left_child = new_root;
+        }
+    }
+    else
+    { /* the node has no father => It's become the root of the tree */
+        avl->root = new_root;
+    }
+
+    /* the new father of new_root is the father of the old root*/
+    new_root->father = root->father;
     root->left_child = new_root->right_child;
+    if(new_root->right_child != NULL)
+    {
+        new_root->right_child->father = root;
+    }
+
+    /* the old root father become the new root*/
+    root->father = new_root;
     new_root->right_child = root;
     return new_root;
 
@@ -257,7 +284,33 @@ AVLNode *left_rotation_avl(Avl *avl, AVLNode *root)
 {
     AVLNode *new_root;
     new_root = root->right_child;
+
+    /* update the father to point to the new child*/
+    if(root->father != NULL)
+    {
+        if(get_node_side_avl(root) == RIGHT_SIDE)
+        {
+            root->father->right_child = new_root;
+        }
+        else
+        {
+            root->father->left_child = new_root;
+        }
+    }
+    else
+    {
+        avl->root = new_root;
+    }
+
+    /* the new father of new_root is the father of the old root*/
+    new_root->father = root->father;
     root->right_child = new_root->left_child;
+    if(new_root->left_child != NULL)
+    {
+        new_root->left_child->father = root;
+    }
+    /* the old root father become the new root*/
+    root->father = new_root;
     new_root->left_child = root;
     return new_root;
 }
