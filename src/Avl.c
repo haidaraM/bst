@@ -276,7 +276,7 @@ int compute_height(const AVLNode *noeud)
 
 void remove_element_from_avl(Avl *avl, const Element element)
 {
-
+    /* TODO : implement remove function */
 }
 
 unsigned long get_nb_elements_in_avl(const Avl *avl)

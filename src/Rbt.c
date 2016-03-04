@@ -372,7 +372,7 @@ void recursive_write_digraph(const RBNode *noeud, FILE *file)
 
 void remove_element_from_rbtree(RBTree *rbTree, const Element element)
 {
-
+    /* TODO : implement remove function */
 }
 
 

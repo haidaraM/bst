@@ -64,7 +64,9 @@ void create_dot_file_for_collection(const Collection *collection, const char *fi
 void remove_element_from_collection(Collection *collection, const Element element)
 {
 #ifdef AVL
+    remove_element_from_avl((Avl*) collection->root,element);
 #elif RBT
+    remove_element_from_rbtree((RBTree*) collection->root,element);
 #endif
 }
 
