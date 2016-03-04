@@ -43,7 +43,6 @@ void test_left_rotation()
     rightNode->right_child->right_child->father = rightNode->right_child;
 
     RBNode *new_right_child = left_rotation(NULL, rightNode);
-    rightNode = NULL;
 
     assert(new_right_child->data == element3);
     assert(new_right_child->father == root);
@@ -106,7 +105,6 @@ void test_right_rotation()
     rightNode->left_child->father = rightNode;
 
     RBNode *new_right_child = right_rotation(NULL, rightNode);
-    rightNode = NULL;
 
     assert(new_right_child->data == element2);
     assert(new_right_child->father == root);

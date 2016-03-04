@@ -22,6 +22,17 @@ static void rotate_rbtree(RBTree *rbTree, RBNode *node);
 
 RBNode *create_node_rbtree(const Element element);
 
+static void rbtree_insert_case1(RBTree *tree, RBNode *node);
+
+static void rbtree_insert_case2(RBTree *tree, RBNode *node);
+
+static void rbtree_insert_case3(RBTree *tree, RBNode *node);
+
+static void rbtree_insert_case4(RBTree *tree, RBNode *node);
+
+static void rbtree_insert_case5(RBTree *tree, RBNode *node);
+
+
 void initialize_rbtree(RBTree *rbTree, TypePackage *typePackage)
 {
     rbTree->root = NULL;
@@ -72,17 +83,6 @@ RBNode *insert_element_in_rbtree(RBTree *rbTree, const Element element)
 
     return inserted_node;
 }
-
-static void rbtree_insert_case1(RBTree *tree, RBNode *node);
-
-static void rbtree_insert_case2(RBTree *tree, RBNode *node);
-
-static void rbtree_insert_case3(RBTree *tree, RBNode *node);
-
-static void rbtree_insert_case4(RBTree *tree, RBNode *node);
-
-static void rbtree_insert_case5(RBTree *tree, RBNode *node);
-
 
 void rotate_rbtree(RBTree *rbTree, RBNode *node)
 {
@@ -224,11 +224,11 @@ void rbtree_insert_case5(RBTree *tree, RBNode *node)
 
     if(rbNodeSide == LEFT_SIDE)
     {
-        grand_father = right_rotation(tree, grand_father);
+        right_rotation(tree, grand_father);
     }
     else
     {
-        grand_father = left_rotation(tree, grand_father);
+        left_rotation(tree, grand_father);
     }
 
 
