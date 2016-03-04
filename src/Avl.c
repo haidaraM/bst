@@ -11,17 +11,16 @@ static int compute_height(const AVLNode *noeud);
 
 static AVLNode *recursive_insertion(Avl *avl, AVLNode **pNoeud, AVLNode *fatherNode, const Element element);
 
-static AVLNode *right_rotation(AVLNode *root);
+AVLNode *right_rotation_avl(Avl *avl, AVLNode *root);
+AVLNode *left_rotation_avl(Avl *avl, AVLNode *root);
 
-static AVLNode *left_rotation(AVLNode *root);
-
-static AVLNode *create_node_avl(const Element element);
+AVLNode *create_node_avl(const Element element);
 
 static void rotate_avl(Avl *avl);
 
 static void recursive_free(Avl *avl, AVLNode *noeud);
 
-static void recursive_rotation(AVLNode **noeud);
+static void recursive_rotation(Avl *avl, AVLNode **noeud);
 
 static void recursive_write_digraph(const Avl *avl, const AVLNode *noeud, FILE *file);
 
@@ -198,7 +197,7 @@ AVLNode *recursive_insertion(Avl *avl, AVLNode **pNoeud, AVLNode *fatherNode, co
     return NULL;
 }
 
-void recursive_rotation(AVLNode **noeud)
+void recursive_rotation(Avl *avl, AVLNode **noeud)
 {
 
     if(*noeud != NULL)
@@ -214,10 +213,10 @@ void recursive_rotation(AVLNode **noeud)
             {
                 if((*noeud)->left_child->right_child != NULL)
                 {
-                    (*noeud)->left_child = left_rotation((*noeud)->left_child);
+                    (*noeud)->left_child = left_rotation_avl(avl, (*noeud)->left_child);
                 }
             }
-            *noeud = right_rotation(*noeud);
+            *noeud = right_rotation_avl(avl, *noeud);
         }
         else if(hauteurDroit - hauteurGauche > 1)
         { /*unbalanced right => left rotation*/
@@ -225,25 +224,25 @@ void recursive_rotation(AVLNode **noeud)
             {
                 if((*noeud)->right_child->left_child != NULL)
                 {
-                    (*noeud)->right_child = right_rotation((*noeud)->right_child);
+                    (*noeud)->right_child = right_rotation_avl(avl, (*noeud)->right_child);
                 }
             }
-            *noeud = left_rotation(*noeud);
+            *noeud = left_rotation_avl(avl, *noeud);
         }
 
-        recursive_rotation(&(*noeud)->right_child);
-        recursive_rotation(&(*noeud)->left_child);
+        recursive_rotation(avl, &(*noeud)->right_child);
+        recursive_rotation(avl, &(*noeud)->left_child);
 
     }
 }
 
 void rotate_avl(Avl *avl)
 {
-    recursive_rotation(&avl->root);
+    recursive_rotation(avl, &avl->root);
 }
 
 
-AVLNode *right_rotation(AVLNode *root)
+AVLNode *right_rotation_avl(Avl *avl, AVLNode *root)
 {
     AVLNode *new_root;
     new_root = root->left_child;
@@ -254,7 +253,7 @@ AVLNode *right_rotation(AVLNode *root)
 }
 
 
-AVLNode *left_rotation(AVLNode *root)
+AVLNode *left_rotation_avl(Avl *avl, AVLNode *root)
 {
     AVLNode *new_root;
     new_root = root->right_child;
