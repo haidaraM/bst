@@ -16,7 +16,7 @@ There is generic collection defined. The collection will contain some **Element*
 
 ## Tree drawing
 ### ASCII
-You can draw the tree in ASCII with `show_collection_in_ascii` function:
+You can draw the tree in ASCII with the function `show_collection_in_ascii` :
 ```
         355
         / \
@@ -35,10 +35,10 @@ You can draw the tree in ASCII with `show_collection_in_ascii` function:
 ```
 
 ### GraphViz
-You can also draw with Graphviz. The `create_dot_file_for_collection` create a dot file which can be interpreted by the
+You can also draw with Graphviz. The function `create_dot_file_for_collection` create a dot file which can be interpreted by the
 `dot` command. Example :  
 ```bash
-# Create an SVG for the tree
+# Create an SVG representing the tree
 dot -Tsvg generatedFile > tree_in_svg.svg
 ```
 ![tree_png](tree.png)
